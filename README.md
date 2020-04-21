@@ -1,4 +1,4 @@
-# Go 语言设计模式
+# Go 语言设计模式示例集合
 
 参考资料：[大话设计模式](https://book.douban.com/subject/2334288/) | [图解设计模式](https://book.douban.com/subject/26933281/) | [菜鸟教程—设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
