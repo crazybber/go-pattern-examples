@@ -1,66 +1,77 @@
 package factorymethod
 
-//Operator 是被封装的实际类接口
-type Operator interface {
-	SetA(int)
-	SetB(int)
-	Result() int
+import "fmt"
+
+//Assistant 是robot能做的事情
+type Assistant interface {
+	Clean(int)
+	Speak(string)
+	Work() string
 }
 
-//OperatorFactory 是工厂接口
-type OperatorFactory interface {
-	Create() Operator
+//IRobotFactory must be implemented by Factory
+//different Factory create different robot
+type IRobotFactory interface {
+	Build() Assistant
 }
 
-//OperatorBase 是Operator 接口实现的基类，封装公用方法
-type OperatorBase struct {
-	a, b int
+//BasicRobotModel 是基本的机器人模型
+type BasicRobotModel struct {
+	words string
+	a, b  int
 }
 
-//SetA 设置 A
-func (o *OperatorBase) SetA(a int) {
-	o.a = a
+//Clean 打扫
+func (o *BasicRobotModel) Clean(a int) {
+	fmt.Printf("%d", a)
 }
 
-//SetB 设置 B
-func (o *OperatorBase) SetB(b int) {
+//Speak 说话
+func (o *BasicRobotModel) Speak(b int) {
 	o.b = b
 }
 
-//PlusOperatorFactory 是 PlusOperator 的工厂类
-type PlusOperatorFactory struct{}
+//Work  main work
+func (o *BasicRobotModel) Work() string {
+	fmt.Sprint("my main work is do somthing")
+}
 
-func (PlusOperatorFactory) Create() Operator {
+//FightingRobotFactory 生产各类军工机器人
+type FightingRobotFactory struct{}
+
+//Build a robot from FightingRobotFactory
+func (FightingRobotFactory) Build() Assistant {
 	return &PlusOperator{
 		OperatorBase: &OperatorBase{},
 	}
 }
 
-//PlusOperator Operator 的实际加法实现
-type PlusOperator struct {
-	*OperatorBase
+//FightingRobot 实际的战斗机器人
+type FightingRobot struct {
+	*BasicRobotModel
 }
 
 //Result 获取结果
-func (o PlusOperator) Result() int {
+func (o FightingRobot) Result() int {
 	return o.a + o.b
 }
 
-//MinusOperatorFactory 是 MinusOperator 的工厂类
-type MinusOperatorFactory struct{}
+//HomeRobotFactory 生产各类家用机器人
+type HomeRobotFactory struct{}
 
-func (MinusOperatorFactory) Create() Operator {
+//Build a robot from HomeRobotFactory
+func (HomeRobotFactory) Build() Assistant {
 	return &MinusOperator{
 		OperatorBase: &OperatorBase{},
 	}
 }
 
-//MinusOperator Operator 的实际减法实现
-type MinusOperator struct {
+//HomeRobot 实际的家用机器人
+type HomeRobot struct {
 	*OperatorBase
 }
 
 //Result 获取结果
-func (o MinusOperator) Result() int {
+func (o HomeRobot) Result() int {
 	return o.a - o.b
 }

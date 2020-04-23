@@ -2,7 +2,7 @@ package factorymethod
 
 import "testing"
 
-func compute(factory OperatorFactory, a, b int) int {
+func compute(factory IRobotFactory, a, b int) int {
 	op := factory.Create()
 	op.SetA(a)
 	op.SetB(b)
