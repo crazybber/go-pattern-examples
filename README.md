@@ -49,3 +49,9 @@
 
 [参考代码1](https://github.com/tmrts/go-patterns)
 [参考代码2](https://github.com/senghoo/golang-design-pattern)
+
+## 更多
+
+需要重新温习下Go基础?看这里
+
+[go-exercise](https://github.com/crazybber/go-exercise)
