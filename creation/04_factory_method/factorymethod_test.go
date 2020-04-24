@@ -2,25 +2,26 @@ package factorymethod
 
 import "testing"
 
-func compute(factory IRobotFactory, a, b int) int {
-	op := factory.Create()
-	op.SetA(a)
-	op.SetB(b)
-	return op.Result()
+func doWork(factory IRobotFactory, cleanhour int) string {
+	robot := factory.Build()
+	robot.Clean(cleanhour)
+
+	robot.Speak("robot name")
+
+	return robot.Work()
+
 }
 
-func TestOperator(t *testing.T) {
-	var (
-		factory OperatorFactory
-	)
+func TestRobotFactory(t *testing.T) {
+	var factory IRobotFactory
 
-	factory = PlusOperatorFactory{}
-	if compute(factory, 1, 2) != 3 {
+	factory = FightingRobotFactory{}
+	if doWork(factory, 2) != "i can fighting2" {
 		t.Fatal("error with factory method pattern")
 	}
 
-	factory = MinusOperatorFactory{}
-	if compute(factory, 4, 2) != 2 {
+	factory = HomeRobotFactory{}
+	if doWork(factory, 1) != "i can do homework1" {
 		t.Fatal("error with factory method pattern")
 	}
 }

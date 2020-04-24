@@ -1,6 +1,9 @@
 package factorymethod
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 //Assistant 是robot能做的事情
 type Assistant interface {
@@ -17,23 +20,25 @@ type IRobotFactory interface {
 
 //BasicRobotModel 是基本的机器人模型
 type BasicRobotModel struct {
-	words string
-	a, b  int
+	words    string
+	workTime int
 }
 
 //Clean 打扫
-func (o *BasicRobotModel) Clean(a int) {
-	fmt.Printf("%d", a)
+func (b *BasicRobotModel) Clean(a int) {
+	b.workTime = a
+	fmt.Printf("i can clean :%d hours\n", a)
 }
 
 //Speak 说话
-func (o *BasicRobotModel) Speak(b int) {
-	o.b = b
+func (b *BasicRobotModel) Speak(w string) {
+	b.words = w
+	fmt.Printf("my name is: %s\n", w)
 }
 
 //Work  main work
-func (o *BasicRobotModel) Work() string {
-	fmt.Sprint("my main work is do somthing")
+func (b *BasicRobotModel) Work() string {
+	return fmt.Sprint("my main work is do somthing")
 }
 
 //FightingRobotFactory 生产各类军工机器人
@@ -41,8 +46,8 @@ type FightingRobotFactory struct{}
 
 //Build a robot from FightingRobotFactory
 func (FightingRobotFactory) Build() Assistant {
-	return &PlusOperator{
-		OperatorBase: &OperatorBase{},
+	return &FightingRobot{
+		BasicRobotModel: &BasicRobotModel{},
 	}
 }
 
@@ -51,9 +56,10 @@ type FightingRobot struct {
 	*BasicRobotModel
 }
 
-//Result 获取结果
-func (o FightingRobot) Result() int {
-	return o.a + o.b
+//Work for FightingRobot to do some fighting
+func (f FightingRobot) Work() string {
+	fmt.Printf("%s\n", "i can fighting")
+	return "i can fighting" + strconv.Itoa(f.workTime)
 }
 
 //HomeRobotFactory 生产各类家用机器人
@@ -61,17 +67,18 @@ type HomeRobotFactory struct{}
 
 //Build a robot from HomeRobotFactory
 func (HomeRobotFactory) Build() Assistant {
-	return &MinusOperator{
-		OperatorBase: &OperatorBase{},
+	return &HomeRobot{
+		BasicRobotModel: &BasicRobotModel{},
 	}
 }
 
 //HomeRobot 实际的家用机器人
 type HomeRobot struct {
-	*OperatorBase
+	*BasicRobotModel
 }
 
-//Result 获取结果
-func (o HomeRobot) Result() int {
-	return o.a - o.b
+//Work robot do some work
+func (h HomeRobot) Work() string {
+	fmt.Printf("%s\n", "i can do homework")
+	return "i can do homework" + strconv.Itoa(h.workTime)
 }
