@@ -4,7 +4,6 @@
 
 如果抽象工厂退化成生成的对象无关联的或者单一的产品种类则成为工厂函数模式。
 
-
 参考：[对比](https://blog.csdn.net/wyxhd2008/article/details/5597975)
 
 ![对比图片](../../images/abstract-factorys-method.png)
