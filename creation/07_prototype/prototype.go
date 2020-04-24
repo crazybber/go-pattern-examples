@@ -1,24 +1,26 @@
 package prototype
 
-//Cloneable 是原型对象需要实现的接口
+//Cloneable is the key interface
 type Cloneable interface {
 	Clone() Cloneable
 }
 
-type PrototypeManager struct {
-	prototypes map[string]Cloneable
+//cloneLab 克隆实验室,可以克隆很多动物
+type cloneLab struct {
+	animals map[string]Cloneable
 }
 
-func NewPrototypeManager() *PrototypeManager {
-	return &PrototypeManager{
-		prototypes: make(map[string]Cloneable),
+//new 返回一个
+func newCloneLab() *cloneLab {
+	return &cloneLab{
+		animals: make(map[string]Cloneable),
 	}
 }
 
-func (p *PrototypeManager) Get(name string) Cloneable {
-	return p.prototypes[name]
+func (c *cloneLab) Get(name string) Cloneable {
+	return c.animals[name]
 }
 
-func (p *PrototypeManager) Set(name string, prototype Cloneable) {
-	p.prototypes[name] = prototype
+func (c *cloneLab) Set(name string, newObject Cloneable) {
+	c.animals[name] = newObject
 }

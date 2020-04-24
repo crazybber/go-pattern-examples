@@ -2,51 +2,57 @@ package prototype
 
 import "testing"
 
-var manager *PrototypeManager
+//cloneLab 克隆实验室
+var lab *cloneLab
 
-type Type1 struct {
-	name string
+type sheep struct {
+	name   string
+	weight int
 }
 
-func (t *Type1) Clone() Cloneable {
-	tc := *t
+func (s *sheep) Clone() Cloneable {
+	tc := *s
 	return &tc
 }
 
-type Type2 struct {
-	name string
+type cow struct {
+	name   string
+	gender bool
 }
 
-func (t *Type2) Clone() Cloneable {
-	tc := *t
-	return &tc
+func (c *cow) Clone() Cloneable {
+	newCow := &cow{
+		gender: c.gender,
+		name:   c.name,
+	}
+	return newCow
 }
 
 func TestClone(t *testing.T) {
-	t1 := manager.Get("t1")
 
-	t2 := t1.Clone()
+	sheep1 := &sheep{
+		name:   "sheep",
+		weight: 10,
+	}
 
-	if t1 == t2 {
+	sheep2 := sheep1.Clone()
+
+	if sheep1 == sheep2 {
 		t.Fatal("error! get clone not working")
 	}
 }
 
-func TestCloneFromManager(t *testing.T) {
-	c := manager.Get("t1").Clone()
+func TestCloneFromLab(t *testing.T) {
 
-	t1 := c.(*Type1)
-	if t1.name != "type1" {
+	lab := newCloneLab()
+
+	lab.Set("cow", &cow{name: "i am cow", gender: true})
+
+	c := lab.Get("cow").Clone()
+
+	cw := c.(*cow)
+	if cw.name != "i am cow" {
 		t.Fatal("error")
 	}
 
-}
-
-func init() {
-	manager = NewPrototypeManager()
-
-	t1 := &Type1{
-		name: "type1",
-	}
-	manager.Set("t1", t1)
 }
