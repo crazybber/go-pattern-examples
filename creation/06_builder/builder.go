@@ -1,66 +1,63 @@
 package builder
 
-//Builder 是生成器接口
-type Builder interface {
-	Part1()
-	Part2()
-	Part3()
+//ICar 汽车，我们要造车了
+//ICar 车具有以下能力
+type ICar interface {
+	Start()
+	Stop()
+	Speed() int
+	Brand() string
 }
 
-type Director struct {
-	builder Builder
+//ICarBuilder 用来造车
+type ICarBuilder interface {
+	Wheel(wheel int) ICarBuilder
+	Engine(engine string) ICarBuilder
+	Speed(max int) ICarBuilder
+	Brand(brand string) ICarBuilder
+	Build() ICar
 }
 
-// NewDirector ...
-func NewDirector(builder Builder) *Director {
-	return &Director{
-		builder: builder,
-	}
+//CarProto 车的原型
+type CarProto struct {
+	Wheel    int
+	Engine   string
+	MaxSpeed int
+	Brand    string
 }
 
-//Construct Product
-func (d *Director) Construct() {
-	d.builder.Part1()
-	d.builder.Part2()
-	d.builder.Part3()
+//CarStudio 打算通过成立造车实验室进行造车
+type CarStudio struct {
+	prototype CarProto
 }
 
-type Builder1 struct {
-	result string
+// NewCarStudio 造车工作室
+func NewCarStudio() ICarBuilder {
+	return &CarStudio{}
 }
 
-func (b *Builder1) Part1() {
-	b.result += "1"
+// Wheel of car
+func (c *CarStudio) Wheel(wheel int) ICarBuilder {
+	c.prototype.Wheel = wheel
+	return c
 }
 
-func (b *Builder1) Part2() {
-	b.result += "2"
+// Engine of car
+func (c *CarStudio) Engine(engine string) ICarBuilder {
+	return c
 }
 
-func (b *Builder1) Part3() {
-	b.result += "3"
+// Speed of car
+func (c *CarStudio) Speed(max int) ICarBuilder {
+	return c
 }
 
-func (b *Builder1) GetResult() string {
-	return b.result
+// Brand of car
+func (c *CarStudio) Brand(brand string) ICarBuilder {
+	return c
 }
 
-type Builder2 struct {
-	result int
-}
-
-func (b *Builder2) Part1() {
-	b.result += 1
-}
-
-func (b *Builder2) Part2() {
-	b.result += 2
-}
-
-func (b *Builder2) Part3() {
-	b.result += 3
-}
-
-func (b *Builder2) GetResult() int {
-	return b.result
+// Build return a car
+func (c *CarStudio) Build() ICar {
+	return c.prototype
 }
