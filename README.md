@@ -48,7 +48,7 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 
 [大话设计模式](https://book.douban.com/subject/2334288/)
 
-[GO模式文档](https://github.com/tmrts/go-patterns)
+[GO模式文档](https://github.com/nynicg/go-patterns)
 
 [菜鸟教程—设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
