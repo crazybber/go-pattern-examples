@@ -1,5 +1,5 @@
 # 外观模式
 
-API 为facade 模块的外观接口，大部分代码使用此接口简化对facade类的访问。
+又称门面模式，APIs Gateway就是一种facade模式的，用户只要通过APIs就可访问系统功能.
 
-facade模块同时暴露了a和b 两个Module 的NewXXX和interface，其它代码如果需要使用细节功能时可以直接调用。
+Service Desk 或者Calling Center 呼叫中心也是典型门面模式场景,对一些问题的处理和访问，都通过一个集中的入口统一访问.
