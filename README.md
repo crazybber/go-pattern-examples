@@ -16,7 +16,7 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 + [创建者模式(Builder)](./creation/06_builder)
 + [原型模式(Prototype)](./creation/07_prototype)
 + [单例模式(Singleton)](./creation/03_singleton)
-+ [对象池模式(OBject Pool)](./creation/24_object_pool)
++ [对象池模式(Object Pool)](./creation/24_object_pool)
 + [New模式(New)](./creation/25_new)
 
 ## 结构型模式
