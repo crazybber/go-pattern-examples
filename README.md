@@ -44,9 +44,7 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 + [访问者模式(Visitor)](./behavior/23_visitor)
 + [闭包选项模式(Function Option)](./behavior/26_option)
 
-## 参考资(Design patters Articles)
-
-[大话设计模式](https://book.douban.com/subject/2334288/)
+## 参考资料(Design patters Articles)
 
 [GO模式文档](https://github.com/nynicg/go-patterns)
 
