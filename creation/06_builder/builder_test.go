@@ -1,23 +1,21 @@
 package builder
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestBuilder1(t *testing.T) {
-	builder := &Builder1{}
-	director := NewDirector(builder)
-	director.Construct()
-	res := builder.GetResult()
-	if res != "123" {
-		t.Fatalf("Builder1 fail expect 123 acture %s", res)
+func TestBuilderCar(t *testing.T) {
+	builder := NewCarStudio()
+	builder.Brand("sky").Speed(120).Engine("audi")
+	car := builder.Build()
+	if car.Speed() != 120 {
+		t.Fatalf("Builder1 fail expect 120 ,but get %d", car.Speed())
 	}
-}
+	if car.Brand() != "sky" {
+		t.Fatalf("Builder1 fail expect sky ,but get %s", car.Brand())
+	}
 
-func TestBuilder2(t *testing.T) {
-	builder := &Builder2{}
-	director := NewDirector(builder)
-	director.Construct()
-	res := builder.GetResult()
-	if res != 6 {
-		t.Fatalf("Builder2 fail expect 6 acture %d", res)
-	}
+	fmt.Println(car.Speed())
+	fmt.Println(car.Brand())
 }
