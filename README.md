@@ -1,8 +1,6 @@
-# Go 语言设计模式示例集合
+# 语言设计模式示例集合(Go Patterns Examples)
 
-参考资料：[大话设计模式](https://book.douban.com/subject/2334288/) | [图解设计模式](https://book.douban.com/subject/26933281/) | [菜鸟教程—设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
-
-[![Build Status](https://travis-ci.org/senghoo/golang-design-pattern.svg?branch=master)](https://travis-ci.org/senghoo/golang-design-pattern)
+Go常用的、面向工程化和最佳实践的模式套路，包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，每个模式，改一下名字就可以直接用在项目和工程中.
 
 ## 姿势
 
@@ -12,43 +10,49 @@
 
 ## 创建型模式
 
-+ [简单工厂模式（Simple Factory）](./creation/00_simple_factory)
-+ [工厂方法模式（Factory Method）](./creation/04_factory_method)
-+ [抽象工厂模式（Abstract Factory）](./creation/05_abstract_factory)
-+ [创建者模式（Builder）](./creation/06_builder)
-+ [原型模式（Prototype）](./creation/07_prototype)
-+ [单例模式（Singleton）](./creation/03_singleton)
++ [简单工厂模式(Simple Factory)](./creation/00_simple_factory)
++ [工厂方法模式(Factory Method)](./creation/04_factory_method)
++ [抽象工厂模式(Abstract Factory)](./creation/05_abstract_factory)
++ [创建者模式(Builder)](./creation/06_builder)
++ [原型模式(Prototype)](./creation/07_prototype)
++ [单例模式(Singleton)](./creation/03_singleton)
++ [对象池模式(OBject Pool)](./creation/24_object_pool)
++ [New模式(New)](./creation/25_new)
 
 ## 结构型模式
 
-+ [外观模式（Facade）](./01_facade)
-+ [适配器模式（Adapter）](./02_adapter)
-+ [代理模式（Proxy）](./09_proxy)
-+ [组合模式（Composite）](./13_composite)
-+ [享元模式（Flyweight）](./18_flyweight)
-+ [装饰模式（Decorator）](./20_decorator)
-+ [桥模式（Bridge）](./22_bridge)
++ [外观模式(Facade)](./structure/01_facade)
++ [适配器模式(Adapter)](./structure/02_adapter)
++ [代理模式(Proxy)](./structure/09_proxy)
++ [组合模式(Composite)](./structure/13_composite)
++ [享元模式(Flyweight)](./structure/18_flyweight)
++ [装饰模式(Decorator)](./structure/20_decorator)
++ [桥模式(Bridge)](./structure/22_bridge)
 
 ## 行为型模式
 
-+ [中介者模式（Mediator）](./08_mediator)
-+ [观察者模式（Observer）](./10_observer)
-+ [命令模式（Command）](./11_command)
-+ [迭代器模式（Iterator）](./12_iterator)
-+ [模板方法模式（Template Method）](./14_template_method)
-+ [策略模式（Strategy）](./15_strategy)
-+ [状态模式（State）](./16_state)
-+ [备忘录模式（Memento）](./17_memento)
-+ [解释器模式（Interpreter）](./19_interpreter)
-+ [职责链模式（Chain of Responsibility）](./21_chain_of_responsibility)
-+ [访问者模式（Visitor）](./23_visitor)
++ [中介者模式(Mediator)](./behavior/08_mediator)
++ [观察者模式(Observer)](./behavior/10_observer)
++ [命令模式(Command)](./behavior/11_command)
++ [迭代器模式(Iterator)](./behavior/12_iterator)
++ [模板方法模式(Template Method)](./behavior/14_template_method)
++ [策略模式(Strategy)](./behavior/15_strategy)
++ [状态模式(State)](./behavior/behavior16_state)
++ [备忘录模式(Memento)](./behavior/17_memento)
++ [解释器模式(Interpreter)](./behavior/19_interpreter)
++ [职责链模式(Chain of Responsibility)](./behavior/21_chain_of_responsibility)
++ [访问者模式(Visitor)](./behavior/23_visitor)
++ [闭包选项模式(Function Option)](./behavior/26_option)
 
-## Design patters Articles
+## 参考资(Design patters Articles)
 
-[GO模式](https://github.com/tmrts/go-patterns)
+[大话设计模式](https://book.douban.com/subject/2334288/)
 
-[参考代码1](https://github.com/tmrts/go-patterns)
-[参考代码2](https://github.com/senghoo/golang-design-pattern)
+[GO模式文档](https://github.com/tmrts/go-patterns)
+
+[菜鸟教程—设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
+
+[GO设计模式](https://github.com/senghoo/golang-design-pattern)
 
 ## 更多
 
