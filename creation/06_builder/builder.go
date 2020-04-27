@@ -1,10 +1,13 @@
 package builder
 
+import "fmt"
+
 //ICar 汽车，我们要造车了
 //ICar 车具有以下能力
 type ICar interface {
 	Speed() int
 	Brand() string
+	Brief()
 }
 
 //ICarBuilder 造一辆车需要具有的部件
@@ -32,6 +35,14 @@ func (c *CarProto) Speed() int {
 //Brand 车品牌
 func (c *CarProto) Brand() string {
 	return c.BrandName
+}
+
+//Brief 简介
+func (c *CarProto) Brief() {
+	fmt.Println("this is a cool car")
+	fmt.Println("car wheel size: ", c.Wheel)
+	fmt.Println("car MaxSpeed: ", c.MaxSpeed)
+	fmt.Println("car Engine: ", c.Engine)
 }
 
 //CarStudio 打算通过成立造车实验室进行造车

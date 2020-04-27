@@ -19,3 +19,14 @@ func TestBuilderCar(t *testing.T) {
 	fmt.Println(car.Speed())
 	fmt.Println(car.Brand())
 }
+
+func TestBuilderCarMore(t *testing.T) {
+	builder := NewCarStudio()
+	builder.Brand("land").Speed(110).Engine("bmw")
+	builder.Engine("man made").Brand("panda").Wheel(15)
+	car := builder.Build()
+
+	fmt.Println(car.Speed())
+	fmt.Println(car.Brand())
+	car.Brief()
+}
