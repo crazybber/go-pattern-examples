@@ -1,24 +1,21 @@
 package abstractfactory
 
-func getMainAndDetail(factory DAOFactory) {
-	factory.CreateOrderMainDAO().SaveOrderMain()
-	factory.CreateOrderDetailDAO().SaveOrderDetail()
+import "testing"
+
+func TestSQLFactory(t *testing.T) {
+
+	factory := &SQLFactory{}
+	orderWorker := factory.CreateOrderWorker()
+	orderWorker.SaveOrder()
+	detailWorker := factory.CreateOrderDetailWorker()
+	detailWorker.SaveOrderDetail()
 }
 
-func ExampleRdbFactory() {
-	var factory DAOFactory
-	factory = &RDBDAOFactory{}
-	getMainAndDetail(factory)
-	// Output:
-	// rdb main save
-	// rdb detail save
-}
+func TestNoSqlFactory(t *testing.T) {
 
-func ExampleXmlFactory() {
-	var factory DAOFactory
-	factory = &XMLDAOFactory{}
-	getMainAndDetail(factory)
-	// Output:
-	// xml main save
-	// xml detail save
+	factory := &NoSQLFactory{}
+	orderWorker := factory.CreateOrderWorker()
+	orderWorker.SaveOrder()
+	detailWorker := factory.CreateOrderDetailWorker()
+	detailWorker.SaveOrderDetail()
 }
