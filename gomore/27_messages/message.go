@@ -48,6 +48,11 @@ type Topic struct {
 	MessageHistory []Message //当前主题的消息历史,实际项目中需要限定大小并设置过期时间
 }
 
+//MesssageQueue of manager all topics
+type MesssageQueue struct {
+	Topics map[uint64]*Topic
+}
+
 //String remove Subscription
 func (t *Topic) String() string {
 	return t.Name
