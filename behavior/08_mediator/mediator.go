@@ -11,59 +11,86 @@ import (
 
 //Person 定义一个本身的人
 type Person struct {
-	Name       string
-	MoneyCount int //每个人都有钱包
+	Name         string
+	WalletAssets int //每个人都有钱包
 }
 
-//Tenant 租客
+//Tenant 租客 继承Person
 type Tenant struct {
 	Person
-	m *mediator
+	furniture string
 }
 
-//Landlord 房东，要收房租
+//ITenant 租户能做的事情
+type ITenant interface {
+	AskRepair(mediator IMediator)
+}
+
+//Landlord 房东，也继承Person，要收房租
 type Landlord struct {
 	Person
-	accout int //房东的租金账户
-	m      *mediator
+	RentAccout int //房东的租金账户
 }
 
-//Mediator 中介，比如某居客，某家，某壳，即代表租客跟房东谈条件，又代表房东对付租客
-//Mediator  所以中介一定会持有两方的信息，最好用接口代表对象
-//Mediator  这里简化一下，假设中介只为一个房东和一个租客服务，直接用类型的引用，表示拥有关系
+//ILandlord 房东能做的事情
+type ILandlord interface {
+	CollectRent(mediator IMediator)
+}
+
+//Mediator 中介也继承Person，比如某居客，某家，某壳，即代表租客跟房东谈条件，又代表房东对付租客
+//Mediator 中介一定会持有两方的必要信息
+//Mediator 这里简化一下，假设中介只为一个房东和一个租客服务
 type Mediator struct {
-	tenant        interface{}
-	landlord      interface{}
-	feelandlord   int
-	feelandtenant int
+	Person
+	tenant      ITenant   //中介持有房客的信息
+	landlord    ILandlord //中介持有房东的信息
+	feelandlord int
+	feetenant   int
 }
 
-//AskRepair 要求房东修家具
-func (t *Tenant) AskRepair(furniture string) {
-	fmt.Println("i need landlord fix the:", furniture)
-	t.m.Changed()
+//IMediator 中介能做的事情,中介能代表任何一方，
+//所以理论上他需要实现所代表对象的所有能力
+//实际设计中，中介对象本身也会成为问题的所在，可能会比较臃肿
+type IMediator interface {
+	RegisterRoom(landlord ILandlord)
+	Serve(client interface{}) //服务日常活动
+	RentOutRoom(tenant ITenant)
 }
 
-//CollectRent 房东收租金了
-func (l *Landlord) CollectRent(moneyCount int) {
-
-	fmt.Printf("CPU: split data with Sound %s, Video %s\n", c.Sound, c.Video)
+//AskRepair 要求房东修家具，只需要向中介提要求，中介会提代替房客提要求
+func (t *Tenant) AskRepair(mediator IMediator) {
+	fmt.Println("Tenant: i need landlord fix furniture:")
+	mediator.Serve(t)
 }
 
-//Changed 中介要提两边或者多边办事，所以它
-func (m *Mediator) Changed(i interface{}) {
+//CollectRent 房东收租金,只需要向中介收，中介会提代替房东收租金
+func (l *Landlord) CollectRent(mediator IMediator) {
+	fmt.Println("Landlord: collect money")
+	fmt.Printf("Landlord: RentAccout %d, WalletAssets %d\n", l.RentAccout, l.WalletAssets)
+	mediator.Serve(l)
 
 }
 
-//PublishRoom 可以在中介这里发布房源
-func (m *Mediator) PublishRoom(landlord interface{}) {
-
+//RegisterRoom 可以在中介这里发布房源
+func (m *Mediator) RegisterRoom(landlord ILandlord) {
 	m.landlord = landlord
-
 }
 
-//RentRom 可以从中介租房子
-func (m *Mediator) RentRom(tenant interface{}) {
-
+//RentOutRoom 可以从中介租房子
+func (m *Mediator) RentOutRoom(tenant ITenant) {
 	m.tenant = tenant
+}
+
+//Serve 中介要替两边或者多边办事，所以它很累,所有事情都要做
+//这是关键过程
+//简单起见，1代表租客，2代表房东
+func (m *Mediator) Serve(client interface{}) {
+
+	switch client.(type) {
+	case ITenant:
+		fmt.Println("i am serving tenant")
+	case ILandlord:
+		fmt.Println("i am serving landlord")
+	}
+
 }
