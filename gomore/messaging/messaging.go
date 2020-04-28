@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-//Message for msg in bus
+//Message for msg in Message bus
 type Message struct {
 	Alarm    int
 	priority int
@@ -34,7 +34,7 @@ func (s *Subscription) Publish(msg Message) error {
 	if _, ok := <-s.ch; !ok {
 		return errors.New("Topic has been closed")
 	}
-
+	//用go channel 作为队列,接收消息
 	s.ch <- msg
 
 	return nil
@@ -42,13 +42,20 @@ func (s *Subscription) Publish(msg Message) error {
 
 //Topic that user is interested in
 type Topic struct {
-	Subscribers    []Session
-	MessageHistory []Message
+	uid            uint64
+	Name           string
+	Subscribers    []Session //user list
+	MessageHistory []Message //当前主题的消息历史,实际项目中需要限定大小并设置过期时间
+}
+
+//String remove Subscription
+func (t *Topic) String() string {
+	return t.Name
 }
 
 //Subscribe a topic
 func (t *Topic) Subscribe(uid uint64) (Subscription, error) {
-	// Get session and create one if it's the first
+	// Get session or create one if it's the first
 
 	// Add session to the Topic & MessageHistory
 
@@ -63,7 +70,7 @@ func (t *Topic) Unsubscribe(Subscription) error {
 	return nil
 }
 
-//Delete message
+//Delete topic
 func (t *Topic) Delete() error {
 
 	return nil
