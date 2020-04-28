@@ -2,13 +2,12 @@ package facade
 
 import "testing"
 
-var expect = "A module running\nB module running"
+func TestFacadeSuperMarket(t *testing.T) {
 
-// TestFacadeAPI ...
-func TestFacadeAPI(t *testing.T) {
-	api := NewAPI()
-	ret := api.Test()
-	if ret != expect {
-		t.Fatalf("expect %s, return %s", expect, ret)
-	}
+	supermarket := NewSuperMarket()
+
+	supermarket.Sell(1, 3, 5)
+	supermarket.Sell(2, 11, 30)
+
+	supermarket.Sell(8, 8, 30)
 }

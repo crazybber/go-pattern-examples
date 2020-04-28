@@ -1,59 +1,85 @@
 package facade
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func NewAPI() API {
-	return &apiImpl{
-		a: NewAModuleAPI(),
-		b: NewBModuleAPI(),
+//ISupertMarketVendor is facade interface of facade package
+type ISupertMarketVendor interface {
+	Sell(count int)
+}
+
+//SaltVendor 盐供应商
+type SaltVendor struct{}
+
+//MilkVendor 牛奶供应商
+type MilkVendor struct{}
+
+//RiceVendor 大米供应商
+type RiceVendor struct{}
+
+//三家供应商都能直接卖东西
+
+//Sell 卖完了
+func (SaltVendor) Sell(count int) {
+
+	if count > 5 {
+		fmt.Println("Salt out")
+
 	}
+	fmt.Println("Milk got")
+
 }
 
-//API is facade interface of facade package
-type API interface {
-	Test() string
+//Sell 卖完了
+func (MilkVendor) Sell(count int) {
+
+	if count > 20 {
+		fmt.Println("Milk out")
+
+	}
+	fmt.Println("Milk got")
+
 }
 
-//facade implement
-type apiImpl struct {
-	a AModuleAPI
-	b BModuleAPI
+//Sell 卖完了
+func (RiceVendor) Sell(count int) {
+
+	if count > 10 {
+		fmt.Println("Rice out")
+
+	}
+	fmt.Println("Rice got")
+
 }
 
-func (a *apiImpl) Test() string {
-	aRet := a.a.TestA()
-	bRet := a.b.TestB()
-	return fmt.Sprintf("%s\n%s", aRet, bRet)
+//SuperMarket is facade implement
+//SuperMarket is Facade object
+//SuperMarket 具有集中进货能力
+type SuperMarket struct {
+	saltsVendor ISupertMarketVendor
+	milksVendor ISupertMarketVendor
+	ricesVendor ISupertMarketVendor
 }
 
-//NewAModuleAPI return new AModuleAPI
-func NewAModuleAPI() AModuleAPI {
-	return &aModuleImpl{}
+//ISupertMarket market can do
+type ISupertMarket interface {
+	Sell(salt, milk, rice int)
 }
 
-//AModuleAPI ...
-type AModuleAPI interface {
-	TestA() string
+//Sell 集中购买
+func (s *SuperMarket) Sell(salt, milk, rice int) {
+	s.saltsVendor.Sell(salt)
+	s.milksVendor.Sell(milk)
+	s.ricesVendor.Sell(rice)
 }
 
-type aModuleImpl struct{}
+//NewSuperMarket get a market
+func NewSuperMarket() ISupertMarket {
 
-func (*aModuleImpl) TestA() string {
-	return "A module running"
-}
-
-//NewBModuleAPI return new BModuleAPI
-func NewBModuleAPI() BModuleAPI {
-	return &bModuleImpl{}
-}
-
-//BModuleAPI ...
-type BModuleAPI interface {
-	TestB() string
-}
-
-type bModuleImpl struct{}
-
-func (*bModuleImpl) TestB() string {
-	return "B module running"
+	return &SuperMarket{
+		saltsVendor: MilkVendor{},
+		milksVendor: MilkVendor{},
+		ricesVendor: RiceVendor{},
+	}
 }
