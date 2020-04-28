@@ -1,15 +1,25 @@
 package strategy
 
-func ExamplePayByCash() {
-	payment := NewPayment("Ada", "", 123, &Cash{})
-	payment.Pay()
-	// Output:
-	// Pay $123 to Ada by cash
-}
+import "testing"
 
-func ExamplePayByBank() {
-	payment := NewPayment("Bob", "0002", 888, &Bank{})
-	payment.Pay()
-	// Output:
-	// Pay $888 to Bob by bank account 0002
+func TestStoreMoney(t *testing.T) {
+
+	bank := Bank{&MainLandCitizen{"Miss White"}}
+	ctx := &StoreContext{
+		Kind:   "RMB",
+		CardID: "12345678921",
+		Money:  10000,
+	}
+	bank.AccountUserMoney(ctx)
+
+	hkUser := &HongKongCitizen{"Miss Black"}
+
+	bank.Recept(hkUser)
+
+	ctx = &StoreContext{
+		Kind:   "HK",
+		CardID: "987345678456",
+		Money:  8723,
+	}
+	bank.AccountUserMoney(ctx)
 }

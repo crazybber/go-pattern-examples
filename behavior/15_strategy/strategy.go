@@ -2,44 +2,53 @@ package strategy
 
 import "fmt"
 
-type Payment struct {
-	context  *PaymentContext
-	strategy PaymentStrategy
-}
+//money kind
+const (
+	RMB = "RMB"
+	HK  = "HK"
+)
 
-type PaymentContext struct {
-	Name, CardID string
+//StoreContext for Store 要包存钱的上下文信息
+type StoreContext struct {
+	Kind, CardID string
 	Money        int
 }
 
-func NewPayment(name, cardid string, money int, strategy PaymentStrategy) *Payment {
-	return &Payment{
-		context: &PaymentContext{
-			Name:   name,
-			CardID: cardid,
-			Money:  money,
-		},
-		strategy: strategy,
-	}
+//IStore 要实现的存钱接口
+type IStore interface {
+	Store(*StoreContext)
 }
 
-func (p *Payment) Pay() {
-	p.strategy.Pay(p.context)
+//MainLandCitizen 大陆居民
+type MainLandCitizen struct{ Name string }
+
+//Store Money  to bank
+func (m *MainLandCitizen) Store(ctx *StoreContext) {
+	fmt.Println("i am: ", m.Name, "i want to store: ", ctx.Money, ctx.Kind, "to: ", ctx.CardID)
 }
 
-type PaymentStrategy interface {
-	Pay(*PaymentContext)
+//HongKongCitizen 香港居民
+type HongKongCitizen struct{ Name string }
+
+//Store Money  to bank
+func (h *HongKongCitizen) Store(ctx *StoreContext) {
+	fmt.Println("i am: ", h.Name, "i want to store: ", ctx.Money, ctx.Kind, "to: ", ctx.CardID)
 }
 
-type Cash struct{}
-
-func (*Cash) Pay(ctx *PaymentContext) {
-	fmt.Printf("Pay $%d to %s by cash", ctx.Money, ctx.Name)
+//Bank handle moneyholder
+type Bank struct {
+	moneyHolder IStore
 }
 
-type Bank struct{}
+//Recept a user
+func (b *Bank) Recept(moneyHolder IStore) {
+	b.moneyHolder = moneyHolder
+	fmt.Println("Bank: ", "Recept a New User")
+}
 
-func (*Bank) Pay(ctx *PaymentContext) {
-	fmt.Printf("Pay $%d to %s by bank account %s", ctx.Money, ctx.Name, ctx.CardID)
-
+//AccountUserMoney 动态替换的过程在这里,这里调用任何实现了Store的接口对象
+//AccountUserMoney to handle User's Money
+func (b *Bank) AccountUserMoney(ctx *StoreContext) {
+	b.moneyHolder.Store(ctx)
+	fmt.Println("Bank: ", "Processing Store", ctx.Money, ctx.Kind, "to: ", ctx.CardID)
 }
