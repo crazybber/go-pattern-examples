@@ -48,6 +48,7 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 
 + [发布订阅模式(Pub-Sub)](./gomore/27_messages)
 + [时差模式(Time Profile)](./gomore/28_profiles)
++ [上下文模式(Context)](./gomore/29_context)
 
 ## 参考资料(Design patters Articles)
 
