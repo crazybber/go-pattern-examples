@@ -76,7 +76,7 @@ func (s *Subscription) Receive(out *Message) error {
 	case <-s.ctx.Done():
 		return errors.New("Topic has been closed")
 	default:
-		*out <- s.Inbox
+		*out = <-s.Inbox
 	}
 	return nil
 }

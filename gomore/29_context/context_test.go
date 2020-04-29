@@ -15,8 +15,8 @@ func TestContext(t *testing.T) {
 
 	time.Sleep(time.Second)
 
-	reqest, err := http.NewRequest("GET", "http://localhost:8099/hello", nil) // http client get 请求
-	assertEq(nil, err)
+	reqest, _ := http.NewRequest("GET", "http://localhost:8099/hello", nil) // http client get 请求
+
 	client := &http.Client{}
 	ctx, cancel := context.WithCancel(context.Background())
 	reqest = reqest.WithContext(ctx)
@@ -28,7 +28,7 @@ func TestContext(t *testing.T) {
 		}
 	}()
 
-	response, err := client.Do(reqest)
+	client.Do(reqest)
 
 }
 

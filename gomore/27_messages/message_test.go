@@ -26,7 +26,7 @@ func TestMessageSubAndPub(t *testing.T) {
 		//订阅成功了
 
 		go func() {
-			EXIT
+		EXIT:
 			for {
 				select {
 				case <-exit:
@@ -56,7 +56,7 @@ func TestMessageSubAndPub(t *testing.T) {
 		//订阅成功了
 		//发送一个消息
 		go func() {
-			EXIT
+		EXIT:
 			for {
 				select {
 				case <-exit:
