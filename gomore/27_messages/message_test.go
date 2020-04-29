@@ -8,7 +8,7 @@ import (
 
 ////////////////////////////////
 //通常意义上是，连接消息队列之后就可以发送消息
-////当订阅著之后才会收到相关Topic消息的推送
+//当订阅著之后才会收到相关Topic消息的推送
 //这里为了简化，直接订阅成功后发送消息，省去连接消息队列发送消息的步骤
 ////////////////////////////////
 func TestMessageSubAndPub(t *testing.T) {
@@ -41,13 +41,11 @@ func TestMessageSubAndPub(t *testing.T) {
 		}()
 
 		msg := Message{
-			//Type 类型[code :1,2,3,4]
-			Type: 1,
 			Text: "here is a apple",
 			From: Session{User{123, "lily"}, time.Now()},
 		}
 		subSCription123.Publish(msg)
-		msg.Type++
+		msg.Seq++
 		subSCription123.Publish(msg)
 	}
 
@@ -71,15 +69,13 @@ func TestMessageSubAndPub(t *testing.T) {
 		}()
 
 		msg := Message{
-			//Type 类型[code :1,2,3,4]
-			Type: 1,
 			Text: "here is a peach",
 			From: Session{User{123, "bob"}, time.Now()},
 		}
 
 		subSCription456.Publish(msg)
 
-		msg.Type++
+		msg.Seq++
 
 		subSCription456.Publish(msg)
 

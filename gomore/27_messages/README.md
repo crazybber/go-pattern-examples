@@ -9,3 +9,11 @@
 ![图示关系](../../images/pub-sub-pattern-1.png)
 
 图片来源：[pubsub-pattern.md](https://github.com/imsardine/dev-notes/blob/source/docs/pubsub-pattern.md)
+
+示例演示消息队的某个主题(Topic)收到用户订阅之后，的处理过程和与用户之间的响应互动。
+
+并模拟以下情形：
+
++ 主题向用户发送消息
++ 用户订阅主题
++ 用户发送某个主题消息

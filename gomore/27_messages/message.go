@@ -8,8 +8,7 @@ import (
 
 //Message for msg in Message bus
 type Message struct {
-	//Type 类型[code :1,2,3,4]
-	Type int
+	Seq  int
 	Text string
 	From Session //消息来源
 }
@@ -104,11 +103,6 @@ func (q *Queue) AddTopic(topicName string, topicUserQueueSize int) Topic {
 		q.Topics[topicName] = Topic{UserQueueSize: topicUserQueueSize, Name: topicName}
 	}
 	return q.Topics[topicName]
-}
-
-//String remove Subscription
-func (t *Topic) String() string {
-	return t.Name
 }
 
 func (t *Topic) findUserSubscription(uid uint64, topicName string) (Subscription, bool) {
