@@ -1,26 +1,23 @@
-package profile
+package timeprofile
 
 import (
 	"log"
 	"math/big"
-	"time"
 	"testing"
+	"time"
 )
-
 
 func TestBigintProfile(t *testing.T) {
 
+	bigint := big.NewInt(14468)
 
-	bigint :=	big.NewInt(14468)
-
-	BigIntFactorial(bigint) 
+	BigIntFactorial(bigint)
 
 	bigint = big.NewInt(24566)
 
-	BigIntFactorial(bigint) 
+	BigIntFactorial(bigint)
 
 }
-
 
 //Duration for time differ
 func Duration(invocation time.Time, name string) {

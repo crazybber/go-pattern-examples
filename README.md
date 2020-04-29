@@ -56,7 +56,8 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 
 [菜鸟教程—设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
-[GO设计模式](https://github.com/senghoo/golang-design-pattern)
+[23-Pattern-in-Go](https://github.com/senghoo/golang-design-pattern)
+
 
 ## 更多
 
