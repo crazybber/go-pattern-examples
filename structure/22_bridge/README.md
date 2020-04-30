@@ -18,4 +18,6 @@
 3、通过在线的长连接进行websocket推送
 4、通过手机4G/5G的短信通道通知到用户
 
-选择其中的二三两类进行演示
+选择其中的二三两类进行演示。
+
+桥接体现在发送`WSMessage`类型消息的时候,`WSMessage`不是直接发送的而是顺序转交给`EmergencyWSMessage`，由于`EmergencyWSMessage`执行发送动作,并且一开始`EmergencyWSMessage`就知道自己要发送`EmergencyWSMessage`消息，因为在初始化时候`EmergencyWSMessage`对象就直接绑定在了`WSMessage`上.
