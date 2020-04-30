@@ -1,14 +1,22 @@
 package adapter
 
-import "testing"
+import (
+	"testing"
+)
 
-var expect = "adaptee method"
+func TestPowerSocketAdapter(t *testing.T) {
 
-func TestAdapter(t *testing.T) {
-	adaptee := NewAdaptee()
-	target := NewAdapter(adaptee)
-	res := target.Request()
-	if res != expect {
-		t.Fatalf("expect: %s, actual: %s", expect, res)
-	}
+	plug := &TwoPinPlugin{}
+
+	threePinSocket := ThreePinPowerSocket{}
+
+	//三孔插头是不能为两针插头充电的,可以试试看
+	threePinSocket.ThreePinCharging(plug)
+
+	//只好加一个电源适配器
+	powersocket := NewPowerAdapter(&threePinSocket)
+
+	//再试试能不能充电
+	powersocket.PlugCharging(plug)
+
 }
