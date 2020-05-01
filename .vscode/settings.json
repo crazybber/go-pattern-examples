@@ -1,36 +1,41 @@
 {
-    "editor.tabSize": 2,
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "extensions.ignoreRecommendations": true,
-    "workbench.colorCustomizations": {
-      "activityBar.background": "#759570",
-      "activityBar.activeBorder": "#cfd3ef",
-      "activityBar.foreground": "#e7e7e7",
-      "activityBar.hoverBackground": "#352cea",
-      "activityBar.inactiveForeground": "#e7e7e799",
-      "activityBarBadge.background": "#cfd3ef",
-      "activityBarBadge.foreground": "#15202b",
-      "titleBar.activeBackground": "#5e7959",
-      "titleBar.inactiveBackground": "#5e795999",
-      "titleBar.activeForeground": "#e7e7e7",
-      "titleBar.inactiveForeground": "#e7e7e799",
-      "statusBarItem.hoverBackground": "#352cea",
-      "statusBar.foreground": "#e7e7e7",
-      "panel.border": "#759570",
-      "sideBar.border": "#759570",
-      "editorGroup.border": "#759570"
-    },
-    "go.languageServerFlags": [],
-    "go.lintOnSave": "file",
-    "go.vetOnSave": "package",
-    "go.useCodeSnippetsOnFunctionSuggest": true,
-    "go.testFlags": ["-v"],
-    "go.testTimeout": "10s",
-    "go.formatTool": "goimports",
-    "cSpell.allowCompoundWords": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
-  }
-  //https://vscode.readthedocs.io/en/latest/getstarted/settings/
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "extensions.ignoreRecommendations": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#759570",
+    "activityBar.activeBorder": "#cfd3ef",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.hoverBackground": "#352cea",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#cfd3ef",
+    "activityBarBadge.foreground": "#15202b",
+    "titleBar.activeBackground": "#5e7959",
+    "titleBar.inactiveBackground": "#5e795999",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "statusBarItem.hoverBackground": "#352cea",
+    "statusBar.foreground": "#e7e7e7",
+    "panel.border": "#759570",
+    "sideBar.border": "#759570",
+    "editorGroup.border": "#759570"
+  },
+  "go.languageServerFlags": [],
+  "go.lintOnSave": "file",
+  "go.vetOnSave": "package",
+  "go.useCodeSnippetsOnFunctionSuggest": true,
+  "go.testFlags": [
+    "-v"
+  ],
+  "go.testTimeout": "10s",
+  "go.formatTool": "goimports",
+  "cSpell.allowCompoundWords": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+"fileheader.Author":"Edward",
+"fileheader.tpl": "/* \r\n * @Description: https://github.com/crazybber \r\n * @Author: {author} \r\n * @Date: {createTime} \r\n * @Last Modified by:   {lastModifiedBy} \r\n * @Last Modified time: {updateTime} \r\n */\r\n",
+"fileheader.LastModifiedBy": "Edward"
+}
+//https://vscode.readthedocs.io/en/latest/getstarted/settings/

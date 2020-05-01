@@ -1,59 +1,73 @@
 package flyweight
 
-import "fmt"
+/*
+ * @Description: github.com/crazybber
+ * @Author: Edward
+ * @Date: 2020-05-01 18:10:57
+ * @Last Modified by: Edward
+ * @Last Modified time: 2020-05-01 19:38:21
+ */
+import (
+	"fmt"
+)
 
-type ImageFlyweightFactory struct {
-	maps map[string]*ImageFlyweight
+//IDeliverCompany 公司的能力
+type IDeliverCompany interface {
+	//雇人
+	Hire(name string)
+	//送货任务
+	DeliverTask(name string, packets []string)
+
+	GetDeliver(name string) IDeliver
 }
 
-var imageFactory *ImageFlyweightFactory
+//DeliverCompany 快递公司
+type DeliverCompany struct {
+	Employees map[string]IDeliver
+}
 
-func GetImageFlyweightFactory() *ImageFlyweightFactory {
-	if imageFactory == nil {
-		imageFactory = &ImageFlyweightFactory{
-			maps: make(map[string]*ImageFlyweight),
-		}
+//IDeliver 快递员能做的事情
+type IDeliver interface {
+	//送货
+	DeliverPackets(packets []string)
+}
+
+//Deliver 快递员工,员工是一个享元对象
+type Deliver struct {
+	Name    string   //快递员的名字
+	Packets []string //快递员的携带的快递，这一部分是变化的
+}
+
+//Hire 雇佣新员工，员工是全公司共享
+func (d *DeliverCompany) Hire(name string) {
+	if d.Employees == nil || len(d.Employees) == 0 {
+		d.Employees = make(map[string]IDeliver)
 	}
-	return imageFactory
-}
-
-func (f *ImageFlyweightFactory) Get(filename string) *ImageFlyweight {
-	image := f.maps[filename]
-	if image == nil {
-		image = NewImageFlyweight(filename)
-		f.maps[filename] = image
+	if _, ok := d.Employees[name]; ok {
+		fmt.Println("already hired")
+		return
 	}
+	d.Employees[name] = &Deliver{Name: name}
 
-	return image
+	fmt.Println("hired")
 }
 
-type ImageFlyweight struct {
-	data string
+//GetDeliver return Deliver
+func (d *DeliverCompany) GetDeliver(name string) IDeliver {
+
+	return d.Employees[name]
+
 }
 
-func NewImageFlyweight(filename string) *ImageFlyweight {
-	// Load image file
-	data := fmt.Sprintf("image data %s", filename)
-	return &ImageFlyweight{
-		data: data,
-	}
+//DeliverTask 派员工送货
+func (d *DeliverCompany) DeliverTask(name string, packets []string) {
+
+	d.Employees[name].DeliverPackets(packets)
+
 }
 
-func (i *ImageFlyweight) Data() string {
-	return i.data
-}
+//DeliverPackets 送货了
+func (d *Deliver) DeliverPackets(packets []string) {
 
-type ImageViewer struct {
-	*ImageFlyweight
-}
-
-func NewImageViewer(filename string) *ImageViewer {
-	image := GetImageFlyweightFactory().Get(filename)
-	return &ImageViewer{
-		ImageFlyweight: image,
-	}
-}
-
-func (i *ImageViewer) Display() {
-	fmt.Printf("Display: %s\n", i.Data())
+	fmt.Println(d.Name, ": Delivered:", packets)
 }
