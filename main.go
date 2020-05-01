@@ -13,5 +13,7 @@ func main() {
 }
 
 func letsGo() string {
-	return fmt.Sprintln("start go!")
+	fmt.Println("start go!")
+
+	return fmt.Sprintln(contents)
 }
