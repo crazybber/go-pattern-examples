@@ -1,5 +1,7 @@
 {
     "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
     "extensions.ignoreRecommendations": true,
     "workbench.colorCustomizations": {
       "activityBar.background": "#759570",
@@ -27,25 +29,8 @@
     "go.testTimeout": "10s",
     "go.formatTool": "goimports",
     "cSpell.allowCompoundWords": true,
-    "editor.codeActionsOnSave": {"source.organizeImports": true},
-    "cSpell.words": [
-      "Goroutines",
-      "Stateful",
-      "Structs",
-      "bber",
-      "crazybber",
-      "ifelse",
-      "iostream",
-      "istack",
-      "karlseguin",
-      "logrusorgru",
-      "mongodb",
-      "nums",
-      "postgres",
-      "stretchr",
-      "struct",
-      "xargs",
-      "gomore",
-      "stackless"
-    ],
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
   }
+  //https://vscode.readthedocs.io/en/latest/getstarted/settings/

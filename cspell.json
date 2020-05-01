@@ -1,0 +1,35 @@
+{
+    "version": "0.1",
+    "enabledLanguageIds": [
+        "go",
+        "markdown"
+    ],
+    "enabled": true,
+    // words - list of words to be always considered correct
+    "words": [
+       "Goroutines",
+      "Stateful",
+      "Structs",
+      "bber",
+      "crazybber",
+      "ifelse",
+      "iostream",
+      "istack",
+      "karlseguin",
+      "logrusorgru",
+      "mongodb",
+      "nums",
+      "postgres",
+      "stretchr",
+      "struct",
+      "xargs",
+      "gomore",
+      "stackless"
+    ],
+    // flagWords - list of words to be always considered incorrect
+    // This is useful for offensive words and common spelling errors.
+    // For example "hte" should be "the"
+    "flagWords": [
+        "hte"
+    ]
+}
