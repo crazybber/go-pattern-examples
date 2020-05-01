@@ -23,3 +23,6 @@
   - 鞋帽   --->f鞋帽，从最基础通用性上来讲，不分男女
 
 ![一个示例](../../images/Composite.png)
+
+
+[设计模式之：组合模式（Composite)](https://www.cnblogs.com/dragonflyyi/p/5043144.html)
