@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-01 17:24:28
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-01 19:45:32
+ * @Last Modified time: 2020-05-01 19:46:30
  */
 package flyweight
 
@@ -24,6 +24,7 @@ func TestDeliveryPackets(t *testing.T) {
 
 	deliver2 := dc.GetDeliver("lily")
 
+	//一次送货任务
 	dc.DeliverTask("lily", []string{"box1", "box2"})
 
 	dc.DeliverTask("lily", []string{"box6", "box7", "box8"})
