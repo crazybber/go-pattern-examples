@@ -1,10 +1,10 @@
 # Go语言设计模式示例集合(Go Patterns Examples)
 
-Go常用的、面向工程化和最佳实践的模式套路，包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，每个模式，改一下名字就可以直接用在项目和工程中。
+Go常用的、面向工程化和最佳实践的模式套路，总共39种常见的模式，当然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
 
 每一种设计模式都有其特定的应用场景和要解决的问题，了解模式的关键点就在于弄清这些目标场景和问题，千万不要纠结于：为什么这个模式叫这个名字，这个模式为啥要这样用？
 
-记住：这些模式不是你总结的，也不是我的总结的，如果是你的写的，你可以按照自己的喜欢的感觉给这些套路取名字，让别人去费劲想。
+**这些模式不是你总结的，也不是我的总结的，如果是你的写的，你可以按照自己的喜欢的感觉给这些套路取名字，让别人去费劲想。**
 
 ## 姿势
 
@@ -59,7 +59,12 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 + [ ] [淡出模式(Fan-Out)](./gomore/05_fan_out)
 + [ ] [熔断模式(circuit breaker)](./gomore/06_circuit_breaker)
 + [ ] [限流模式(rate limiting))](./gomore/07_rate_limiting)
-+ [ ] [信号量模式(Context)](./gomore/08_semaphore)
++ [ ] [信号量模式(Semaphore)](./gomore/08_semaphore)
++ [ ] [并行模式(Parallelism)](./gomore/09_parallelism)
++ [ ] [生成器模式(Generators)](./gomore/10_generators)
++ [ ] [屏障模式(N-Barrier)](./gomore/11_n_barrier)
++ [ ] [有限并行模式(Bounded Parallelism)](./gomore/12_bounded_parallelism)
+
 
 ## 参考资料(Design patters Articles)
 
