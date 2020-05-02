@@ -2,6 +2,8 @@
 
 39种Go中常用的、面向工程化和最佳实践的模式套路，当然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
 
+包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式！！！
+
 每一种设计模式都有其特定的应用场景和要解决的问题，了解模式的关键点就在于弄清这些目标场景和问题，千万不要纠结于：为什么这个模式叫这个名字，这个模式为啥要这样用？
 
 **这些模式不是你总结的，也不是我的总结的，如果是你的写的，你可以按照自己的喜欢的感觉给这些套路取名字，让别人去费劲想。**
@@ -42,7 +44,7 @@
 + [ ] [命令模式(Command)](./behavior/11_command)
 + [ ] [迭代器模式(Iterator)](./behavior/04_iterator)
 + [ ] [模板方法模式(Template Method)](./behavior/14_template_method)
-+ [x] [策略模式(Strategy)](./behavior/15_strategy)
++ [x] [策略模式(Strategy)](./behavior/12_strategy)
 + [ ] [状态模式(State)](./behavior/behavior16_state)
 + [ ] [备忘录模式(Memento)](./behavior/17_memento)
 + [ ] [解释器模式(Interpreter)](./behavior/19_interpreter)
@@ -68,15 +70,15 @@
 
 ## 参考资料(Design patters Articles)
 
-[GO模式文档](https://github.com/nynicg/go-patterns)
+[go-patterns)](https://github.com/nynicg/go-patterns)
 
-[菜鸟教程—设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
+[design-pattern-tutorial](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
-[23-Pattern-in-Go](https://github.com/senghoo/golang-design-pattern)
+[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)
 
 
 ## 更多
 
 需要重新温习下Go基础?看这里
 
-[go-exercise](https://github.com/crazybber/go-exercise)
+[go-fucking-exercises](https://github.com/crazybber/go-fucking-exercises)
