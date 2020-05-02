@@ -1,43 +1,43 @@
 package decorator
 
-type Component interface {
-	Calc() int
+////////////////////////////////
+//拿化妆做例子
+
+//IFaceLooks 脸部的颜值
+type IFaceLooks interface {
+	FaceLooks() int
 }
 
-type ConcreteComponent struct{}
-
-func (*ConcreteComponent) Calc() int {
-	return 0
+//NatureGirl 天然无化妆的小姐姐
+type NatureGirl struct {
+	faceValue int
 }
 
-type MulDecorator struct {
-	Component
-	num int
+//FaceLooks 获取小姐姐的颜值
+func (n *NatureGirl) FaceLooks() int {
+	return n.faceValue
 }
 
-func WarpMulDecorator(c Component, num int) Component {
-	return &MulDecorator{
-		Component: c,
-		num:       num,
+//GirlWithMakeups 化妆后的小姐姐
+type GirlWithMakeups struct {
+	origin   IFaceLooks //这就是那个自然美的小姐姐
+	facePlus int        //脸部加成，说，你想化成什么样子吧。
+}
+
+//NewGirlWithMakeup 返回一个化妆后的小姐姐
+func NewGirlWithMakeup(origin IFaceLooks, facePlus int) IFaceLooks {
+	return &GirlWithMakeups{
+		origin:   origin,
+		facePlus: facePlus,
 	}
 }
 
-func (d *MulDecorator) Calc() int {
-	return d.Component.Calc() * d.num
+//FaceLooks 我要开始化妆了..
+func (g *GirlWithMakeups) FaceLooks() int {
+	return g.origin.FaceLooks() + g.facePlus
 }
 
-type AddDecorator struct {
-	Component
-	num int
-}
-
-func WarpAddDecorator(c Component, num int) Component {
-	return &AddDecorator{
-		Component: c,
-		num:       num,
-	}
-}
-
-func (d *AddDecorator) Calc() int {
-	return d.Component.Calc() + d.num
+//FaceReal 实际的颜值..
+func (g *GirlWithMakeups) FaceReal() int {
+	return g.origin.FaceLooks()
 }
