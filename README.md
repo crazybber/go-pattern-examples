@@ -15,14 +15,15 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 
 ## 创建型模式
 
-+ [x] [简单工厂模式(Simple Factory)](./creation/00_simple_factory)
-+ [x] [工厂方法模式(Factory Method)](./creation/04_factory_method)
-+ [x] [抽象工厂模式(Abstract Factory)](./creation/05_abstract_factory)
-+ [x] [创建者模式(Builder)](./creation/06_builder)
++ [x] [New模式(New)](./creation/01_new)
++ [x] [简单工厂模式(Simple Factory)](./creation/02_simple_factory)
++ [x] [创建者模式(Builder)](./creation/03_builder)
++ [x] [单例模式(Singleton)](./creation/06_singleton)
++ [ ] [对象池模式(Object Pool)](./creation/04_object_pool)
++ [x] [工厂方法模式(Factory Method)](./creation/05_factory_method)
++ [x] [抽象工厂模式(Abstract Factory)](./creation/08_abstract_factory)
 + [x] [原型模式(Prototype)](./creation/07_prototype)
-+ [x] [单例模式(Singleton)](./creation/03_singleton)
-+ [ ] [对象池模式(Object Pool)](./creation/24_object_pool)
-+ [x] [New模式(New)](./creation/25_new)
+
 
 ## 结构型模式
 
