@@ -29,11 +29,11 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 
 + [x] [外观模式(Facade)](./structure/01_facade)
 + [x] [适配器模式(Adapter)](./structure/02_adapter)
-+ [x] [代理模式(Proxy)](./structure/09_proxy)
-+ [ ] [复合模式(Composite)](./structure/13_composite)
-+ [x] [享元模式(Flyweight)](./structure/18_flyweight)
-+ [ ] [装饰模式(Decorator)](./structure/20_decorator)
-+ [x] [桥模式(Bridge)](./structure/22_bridge)
++ [x] [桥模式(Bridge)](./structure/03_bridge)
++ [x] [复合模式(Composite)](./structure/05_composite)
++ [x] [享元模式(Flyweight)](./structure/04_flyweight)
++ [ ] [装饰模式(Decorator)](./structure/06_decorator)
++ [x] [代理模式(Proxy)](./structure/07_proxy)
 
 ## 行为型模式
 
