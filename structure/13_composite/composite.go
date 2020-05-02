@@ -7,22 +7,6 @@ import (
 
 ////////////////////////////////
 //使用集装箱与货物的例子
-////////////////////////////////
-
-//IShippedCargo 定义基本的对外一致性访问
-type IShippedCargo interface {
-	GetCargoType() string
-	ShowContent()
-}
-
-//IBox 复合类型的接口
-type IBox interface {
-	IShippedCargo                   //继承接口
-	PutInCargo(cargo IShippedCargo) //放入一个子类型
-	GetChildren() []IBox
-}
-
-////////////////////////////////
 //下面三个是对象的该模式的关键结构
 ////////////////////////////////
 
@@ -47,22 +31,28 @@ func (c *Cargo) ShowContent() {
 //Box 复合类型，表示集装箱
 //Box 复合类型，集装箱里面装具体的货物,也可以继续放箱子
 type Box struct {
-	Cargo                      //继承货物类
-	InnerSpace uint            //内部空间
-	Children   []IShippedCargo //有子对象
+	Cargo                    //继承货物类
+	InnerSpace uint          //内部空间
+	Children   []interface{} //有子对象
 }
 
 //PutInCargo 增加新的能力
 //PutInCargo (cargo ICargo) //放入一个子类型
-func (b *Box) PutInCargo(cargo IShippedCargo) {
-	fmt.Println("get a Child: ", cargo.GetCargoType())
+func (b *Box) PutInCargo(cargo interface{}) {
+
+	switch cargo.(type) {
+	case *Box:
+		fmt.Println("get a Box: Type: ", cargo.(*Box).GetCargoType())
+	case *SingleCargo:
+		fmt.Println("get a SingleCargo Type: ", cargo.(*SingleCargo).GetCargoType())
+	}
 
 	b.Children = append(b.Children, cargo)
 
 }
 
 //GetChildren () []ICompositedCargo
-func (b *Box) GetChildren() []IShippedCargo {
+func (b *Box) GetChildren() []interface{} {
 	return b.Children
 }
 
