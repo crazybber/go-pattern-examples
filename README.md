@@ -32,7 +32,7 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 + [x] [桥模式(Bridge)](./structure/03_bridge)
 + [x] [复合模式(Composite)](./structure/05_composite)
 + [x] [享元模式(Flyweight)](./structure/04_flyweight)
-+ [ ] [装饰模式(Decorator)](./structure/06_decorator)
++ [x] [装饰器模式(Decorator)](./structure/06_decorator)
 + [x] [代理模式(Proxy)](./structure/07_proxy)
 
 ## 行为型模式
@@ -52,9 +52,14 @@ Go常用的、面向工程化和最佳实践的模式套路，包含常见的23�
 
 ## Go More
 
-+ [x] [发布订阅模式(Pub-Sub)](./gomore/27_messages)
-+ [x] [时差模式(Time Profile)](./gomore/28_profiles)
-+ [x] [上下文模式(Context)](./gomore/29_context)
++ [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
++ [x] [时差模式(Time Profile)](./gomore/02_profiles)
++ [x] [上下文模式(Context)](./gomore/03_context)
++ [ ] [淡入模式(Fan-In)](./gomore/04_fan_in)
++ [ ] [淡出模式(Fan-Out)](./gomore/05_fan_out)
++ [ ] [熔断模式(circuit breaker)](./gomore/06_circuit_breaker)
++ [ ] [限流模式(rate limiting))](./gomore/07_rate_limiting)
++ [ ] [信号量模式(Context)](./gomore/08_semaphore)
 
 ## 参考资料(Design patters Articles)
 
