@@ -53,6 +53,7 @@ func Introduce(name string, setters ...Option /*传入闭包设置函数*/) {
 		Company: "",
 		Gender:  true,
 	}
+	//模式的重点体现在这里，通过外部传入的闭包函数设置内在变量
 	for _, setter := range setters {
 		setter(args)
 	}
