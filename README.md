@@ -1,8 +1,9 @@
 # Go语言设计模式示例集合(Go Patterns Examples)
 
-39种Go中常用的、面向工程化和最佳实践的模式套路，当然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
+**包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式！！！**
 
-包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式！！！
+目前包括了**39种Go中常用的、面向工程化和最佳实践的模式/套路**，自然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
+
 
 每一种设计模式都有其特定的应用场景和要解决的问题，了解模式的关键点就在于弄清这些目标场景和问题，千万不要纠结于：为什么这个模式叫这个名字，这个模式为啥要这样用？
 
@@ -70,7 +71,7 @@
 
 ## 参考资料(Design patters Articles)
 
-[go-patterns)](https://github.com/nynicg/go-patterns)
+[go-patterns](https://github.com/nynicg/go-patterns)
 
 [design-pattern-tutorial](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
