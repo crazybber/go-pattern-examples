@@ -38,9 +38,9 @@
 ## 行为型模式
 
 + [x] [中介者模式(Mediator)](./behavior/08_mediator)
-+ [ ] [观察者模式(Observer)](./behavior/10_observer)
++ [x] [观察者模式(Observer)](./behavior/10_observer)
 + [ ] [命令模式(Command)](./behavior/11_command)
-+ [ ] [迭代器模式(Iterator)](./behavior/12_iterator)
++ [ ] [迭代器模式(Iterator)](./behavior/04_iterator)
 + [ ] [模板方法模式(Template Method)](./behavior/14_template_method)
 + [x] [策略模式(Strategy)](./behavior/15_strategy)
 + [ ] [状态模式(State)](./behavior/behavior16_state)
