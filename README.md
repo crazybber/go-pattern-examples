@@ -71,7 +71,7 @@
 
 ## 参考资料(Design patters Articles)
 
-[go-patterns](https://github.com/nynicg/go-patterns)
+[go-patterns](https://github.com/crazybber/go-patterns)
 
 [design-pattern-tutorial](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
