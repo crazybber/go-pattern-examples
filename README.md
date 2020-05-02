@@ -16,6 +16,22 @@
 + 这里就是以实际代码示例展示设计模式,通俗易懂
 + 除了常见的23种普适的设计模式,Go也有一些属于自己的模式
 
+## 行为型模式
+
++ [x] [中介者模式(Mediator)](./behavior/01_mediator)
++ [x] [闭包选项模式(Function Option)](./behavior/02_option)
++ [x] [观察者模式(Observer)](./behavior/10_observer)
++ [ ] [命令模式(Command)](./behavior/11_command)
++ [ ] [迭代器模式(Iterator)](./behavior/04_iterator)
++ [ ] [模板方法模式(Template Method)](./behavior/14_template_method)
++ [x] [策略模式(Strategy)](./behavior/12_strategy)
++ [ ] [状态模式(State)](./behavior/behavior16_state)
++ [ ] [备忘录模式(Memento)](./behavior/17_memento)
++ [ ] [解释器模式(Interpreter)](./behavior/19_interpreter)
++ [ ] [职责链模式(Chain of Responsibility)](./behavior/21_chain_of_responsibility)
++ [ ] [访问者模式(Visitor)](./behavior/23_visitor)
+
+
 ## 创建型模式
 
 + [x] [New模式(New)](./creation/01_new)
@@ -37,21 +53,6 @@
 + [x] [享元模式(Flyweight)](./structure/04_flyweight)
 + [x] [装饰器模式(Decorator)](./structure/06_decorator)
 + [x] [代理模式(Proxy)](./structure/07_proxy)
-
-## 行为型模式
-
-+ [x] [中介者模式(Mediator)](./behavior/08_mediator)
-+ [x] [观察者模式(Observer)](./behavior/10_observer)
-+ [ ] [命令模式(Command)](./behavior/11_command)
-+ [ ] [迭代器模式(Iterator)](./behavior/04_iterator)
-+ [ ] [模板方法模式(Template Method)](./behavior/14_template_method)
-+ [x] [策略模式(Strategy)](./behavior/12_strategy)
-+ [ ] [状态模式(State)](./behavior/behavior16_state)
-+ [ ] [备忘录模式(Memento)](./behavior/17_memento)
-+ [ ] [解释器模式(Interpreter)](./behavior/19_interpreter)
-+ [ ] [职责链模式(Chain of Responsibility)](./behavior/21_chain_of_responsibility)
-+ [ ] [访问者模式(Visitor)](./behavior/23_visitor)
-+ [x] [闭包选项模式(Function Option)](./behavior/26_option)
 
 ## Go More
 
@@ -76,6 +77,8 @@
 [design-pattern-tutorial](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
 [golang-design-pattern](https://github.com/senghoo/golang-design-pattern)
+
+[design_pattern](http://c.biancheng.net/design_pattern)
 
 
 ## 更多
