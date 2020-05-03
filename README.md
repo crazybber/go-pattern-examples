@@ -1,6 +1,6 @@
 # Go语言设计模式示例集合(Go Patterns Examples)
 
-**包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式！！！**
+**包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式**
 
 目前包括了**39种Go中常用的、面向工程化和最佳实践的模式/套路**，自然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
 
@@ -79,6 +79,8 @@
 [golang-design-pattern](https://github.com/senghoo/golang-design-pattern)
 
 [design_pattern](http://c.biancheng.net/design_pattern)
+
+[go-resiliency](https://github.com/eapache/go-resiliency)
 
 
 ## 更多
