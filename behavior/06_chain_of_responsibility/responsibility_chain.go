@@ -67,8 +67,8 @@ func (g *GM) SetNext(next IApprove) {
 }
 
 //HaveRight 处理审批所需要的权限级别
-func (g *GM) HaveRight(level int) bool {
-	return g.level > level
+func (g *GM) HaveRight(RequiredLevel int) bool {
+	return g.level > RequiredLevel
 }
 
 //HandleApproval 进行审批
@@ -77,7 +77,7 @@ func (g *GM) HandleApproval(request FeeRequest) bool {
 		fmt.Printf("GM permit %s %d fee request\n", request.Name, request.Mount)
 		return true
 	}
-	fmt.Printf("GM Have right to approve %s %d fee request\n", request.Name, request.Mount)
+	fmt.Printf("GM NO right to approve %s %d fee request\n", request.Name, request.Mount)
 	//direct forward to Next One
 	if g.nextHandler != nil {
 		return g.nextHandler.HandleApproval(request)
@@ -113,7 +113,7 @@ func (c *CFO) HandleApproval(request FeeRequest) bool {
 		fmt.Printf("CFO permit %s %d fee request\n", request.Name, request.Mount)
 		return true
 	}
-	//	fmt.Printf("CFO permit %s %d fee request,But still need CEO \n", request.Name, request.Mount)
+	fmt.Printf("CFO No right to approve %s %d fee request \n", request.Name, request.Mount)
 	if c.nextHandler != nil {
 		return c.nextHandler.HandleApproval(request)
 	}
@@ -121,7 +121,8 @@ func (c *CFO) HandleApproval(request FeeRequest) bool {
 }
 
 //CEO 需要审批
-type CEO struct{}
+type CEO struct {
+}
 
 //NewCEO 对象
 func NewCEO() IApprove {

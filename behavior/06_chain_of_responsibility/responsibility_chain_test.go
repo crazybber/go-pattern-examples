@@ -6,7 +6,7 @@ func TestChainsOfResponsibilityInApprovementList(t *testing.T) {
 
 	request := FeeRequest{
 		Name:          "sophia",
-		Mount:         1e+13,
+		Mount:         1e+9,
 		RequiredLevel: 8,
 	}
 
@@ -21,19 +21,38 @@ func TestChainsOfResponsibilityInApprovementList(t *testing.T) {
 
 	flow.RunApprovalFlow(request)
 
-	// request = FeeRequest{
-	// 	Name:          "peter",
-	// 	Mount:         1e+13,
-	// 	RequiredLevel: 8,
-	// }
+	t.Log("------second flow--------")
+	request = FeeRequest{
+		Name:          "peter",
+		Mount:         1e+13,
+		RequiredLevel: 8,
+	}
 
-	// ceo := &CEO{level: 10}
-	// flow.AddApprover(ceo)
+	ceo := &CEO{}
+	flow.AddApprover(ceo)
 
-	// flow.RunApprovalFlow(request)
+	flow.RunApprovalFlow(request)
 
 }
 
 func TestChainsOfResponsibilityInApprovementLink(t *testing.T) {
+
+	request := FeeRequest{
+		Name:          "sophia",
+		Mount:         1e+11,
+		RequiredLevel: 8,
+	}
+
+	gm := &GM{level: 7}
+
+	cfo := &CFO{level: 9}
+
+	ceo := &CEO{}
+
+	gm.SetNext(cfo)
+
+	cfo.SetNext(ceo)
+
+	gm.HandleApproval(request)
 
 }
