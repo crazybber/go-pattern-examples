@@ -35,7 +35,9 @@ func TestIterator(t *testing.T) {
 
 	t.Log("pots count:", scenicArea.PotsCount())
 
-	//切片变了，要重新获取
+	//切片变了，所以要重新获取快照.
+	//如果想进一步了解看以这个例子：
+	//https://github.com/crazybber/go-fucking-exercise/blob/master/routine/slice_read_write_test.go
 	potInterator = scenicArea.Iterator()
 
 	potInterator.Reset()

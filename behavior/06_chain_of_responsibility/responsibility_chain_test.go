@@ -1,23 +1,39 @@
 package chain
 
-func ExampleChain() {
-	c1 := NewProjectManagerChain()
-	c2 := NewDepManagerChain()
-	c3 := NewGeneralManagerChain()
+import "testing"
 
-	c1.SetSuccessor(c2)
-	c2.SetSuccessor(c3)
+func TestChainsOfResponsibilityInApprovementList(t *testing.T) {
 
-	var c Manager = c1
+	request := FeeRequest{
+		Name:          "sophia",
+		Mount:         1e+13,
+		RequiredLevel: 8,
+	}
 
-	c.HandleFeeRequest("bob", 400)
-	c.HandleFeeRequest("tom", 1400)
-	c.HandleFeeRequest("ada", 10000)
-	c.HandleFeeRequest("floar", 400)
-	// Output:
-	// Project manager permit bob 400 fee request
-	// Dep manager permit tom 1400 fee request
-	// General manager permit ada 10000 fee request
-	// Project manager don't permit floar 400 fee request
+	flow := &FeeRequestChainFlow{}
+
+	gm1 := &GM{level: 7}
+
+	cfo1 := &CFO{level: 9}
+
+	flow.AddApprover(gm1)
+	flow.AddApprover(cfo1)
+
+	flow.RunApprovalFlow(request)
+
+	// request = FeeRequest{
+	// 	Name:          "peter",
+	// 	Mount:         1e+13,
+	// 	RequiredLevel: 8,
+	// }
+
+	// ceo := &CEO{level: 10}
+	// flow.AddApprover(ceo)
+
+	// flow.RunApprovalFlow(request)
+
+}
+
+func TestChainsOfResponsibilityInApprovementLink(t *testing.T) {
 
 }
