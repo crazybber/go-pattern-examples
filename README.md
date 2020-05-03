@@ -20,15 +20,15 @@
 
 + [x] [中介者模式(Mediator)](./behavior/01_mediator)
 + [x] [闭包选项模式(Function Option)](./behavior/02_option)
-+ [x] [观察者模式(Observer)](./behavior/10_observer)
++ [x] [观察者模式(Observer)](./behavior/03_observer)
 + [ ] [命令模式(Command)](./behavior/11_command)
 + [x] [迭代器模式(Iterator)](./behavior/04_iterator)
-+ [ ] [模板方法模式(Template Method)](./behavior/14_template_method)
++ [x] [模板方法模式(Template Method)](./behavior/05_template_method)
 + [x] [策略模式(Strategy)](./behavior/12_strategy)
 + [ ] [状态模式(State)](./behavior/behavior16_state)
 + [ ] [备忘录模式(Memento)](./behavior/17_memento)
 + [ ] [解释器模式(Interpreter)](./behavior/19_interpreter)
-+ [ ] [职责链模式(Chain of Responsibility)](./behavior/21_chain_of_responsibility)
++ [ ] [职责链模式(Chain of Responsibility)](./behavior/05_chain_of_responsibility)
 + [ ] [访问者模式(Visitor)](./behavior/23_visitor)
 
 
@@ -93,4 +93,4 @@
 
 需要重新温习下Go基础?看这里
 
-[go-fucking-exercises](https://github.com/crazybber/go-fucking-exercises)
+[go-fucking-exercises](https://github.com/crazybber/go-fucking-exercise)
