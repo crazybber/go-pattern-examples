@@ -2,68 +2,78 @@ package templatemethod
 
 import "fmt"
 
-type Downloader interface {
-	Download(uri string)
+////////////////////////////////
+//使用打印的例子
+
+//IPrinter 定义打印的流程
+type IPrinter interface {
+	Set(mark string)
+	Print()
 }
 
-type template struct {
-	implement
-	uri string
+//Printer 定义基本结构类型
+type Printer struct {
+	workerMark string
+	printer    IPrinter //指项实际工作的类型
 }
 
-type implement interface {
-	download()
-	save()
+//LoadDrive 载入驱动
+func (p *Printer) LoadDrive() {
+	fmt.Print("init print drive\n")
 }
 
-func newTemplate(impl implement) *template {
-	return &template{
-		implement: impl,
+//UnLoadDrive 卸载驱动
+func (p *Printer) UnLoadDrive() {
+	fmt.Print("unload drive\n")
+}
+
+//Set 设置参数，这是变化的部分
+func (p *Printer) Set(mark string) {
+	p.workerMark = mark
+	//调用实现
+	if p.printer != nil {
+		p.printer.Set(mark)
 	}
 }
 
-func (t *template) Download(uri string) {
-	t.uri = uri
-	fmt.Print("prepare downloading\n")
-	t.implement.download()
-	t.implement.save()
-	fmt.Print("finish downloading\n")
+//Print 执行打印，这是变化的部分
+func (p *Printer) Print() {
+	//调用实现
+	fmt.Print("print with task mark: ", p.workerMark, "\n")
+	if p.printer != nil {
+		p.printer.Print()
+	}
+
 }
 
-func (t *template) save() {
-	fmt.Print("default save\n")
+//DoPrintWork 打印
+//DoPrintWork 定义了打印的流程
+func (p *Printer) DoPrintWork() {
+	p.LoadDrive()
+	p.Set(p.workerMark)
+	p.Print()
+	p.UnLoadDrive()
 }
 
-type HTTPDownloader struct {
-	*template
+//PDF 虚拟打印
+type PDF struct {
+	Printer
+	output string
 }
 
-func NewHTTPDownloader() Downloader {
-	downloader := &HTTPDownloader{}
-	template := newTemplate(downloader)
-	downloader.template = template
-	return downloader
+//Print to a PDF
+func (p *PDF) Print() {
+	fmt.Print("print to PDF ,save to ", p.output, "\n")
+
 }
 
-func (d *HTTPDownloader) download() {
-	fmt.Printf("download %s via http\n", d.uri)
+//DevicePrinter 设备打印机
+type DevicePrinter struct {
+	Printer
+	quality int //1,2,3表示打印高中低
 }
 
-func (*HTTPDownloader) save() {
-	fmt.Printf("http save\n")
-}
-
-type FTPDownloader struct {
-	*template
-}
-
-func NewFTPDownloader() Downloader {
-	downloader := &FTPDownloader{}
-	template := newTemplate(downloader)
-	downloader.template = template
-	return downloader
-}
-
-func (d *FTPDownloader) download() {
-	fmt.Printf("download %s via ftp\n", d.uri)
+//Print to a Paper
+func (d *DevicePrinter) Print() {
+	fmt.Print("print to Paper ,with quality: ", d.quality, "\n")
 }
