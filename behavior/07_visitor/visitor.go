@@ -2,73 +2,58 @@ package visitor
 
 import "fmt"
 
-type Customer interface {
-	Accept(Visitor)
+////////////////////////////////
+//使用石油的例子
+
+//IGasResource 作为资源提供接口
+type IGasResource interface {
+	Accept(IGasVisitor)
 }
 
-type Visitor interface {
-	Visit(Customer)
+//gas 汽油
+type gas struct {
+	density int
 }
 
-type EnterpriseCustomer struct {
+//IGasVisitor 访问者接口
+type IGasVisitor interface {
+	Visit(gas)
+}
+
+//Accept 接待汽油客户
+func (g gas) Accept(visitor IGasVisitor) {
+	visitor.Visit(g)
+}
+
+//diesel 柴油
+type diesel struct {
+	energy int
+}
+
+//IDieselVisitor 访问者接口
+type IDieselVisitor interface {
+	Visit(diesel)
+}
+
+//Accept 提供柴油
+func (d diesel) Accept(visitor IDieselVisitor) {
+	visitor.Visit(d)
+}
+
+//militaryFactory 军工厂，消费石油，制造务器
+type militaryFactory struct {
 	name string
 }
 
-type CustomerCol struct {
-	customers []Customer
+//Visit 军工厂只够买柴油，制造武器
+func (m *militaryFactory) Visit(d diesel) {
+	fmt.Println("militaryFactory: use diesel with inner energy", d.energy)
 }
 
-func (c *CustomerCol) Add(customer Customer) {
-	c.customers = append(c.customers, customer)
-}
+// clothFactory 服务装类工厂，购买汽油，制造化纤物品
+type clothFactory struct{}
 
-func (c *CustomerCol) Accept(visitor Visitor) {
-	for _, customer := range c.customers {
-		customer.Accept(visitor)
-	}
-}
-
-func NewEnterpriseCustomer(name string) *EnterpriseCustomer {
-	return &EnterpriseCustomer{
-		name: name,
-	}
-}
-
-func (c *EnterpriseCustomer) Accept(visitor Visitor) {
-	visitor.Visit(c)
-}
-
-type IndividualCustomer struct {
-	name string
-}
-
-func NewIndividualCustomer(name string) *IndividualCustomer {
-	return &IndividualCustomer{
-		name: name,
-	}
-}
-
-func (c *IndividualCustomer) Accept(visitor Visitor) {
-	visitor.Visit(c)
-}
-
-type ServiceRequestVisitor struct{}
-
-func (*ServiceRequestVisitor) Visit(customer Customer) {
-	switch c := customer.(type) {
-	case *EnterpriseCustomer:
-		fmt.Printf("serving enterprise customer %s\n", c.name)
-	case *IndividualCustomer:
-		fmt.Printf("serving individual customer %s\n", c.name)
-	}
-}
-
-// only for enterprise
-type AnalysisVisitor struct{}
-
-func (*AnalysisVisitor) Visit(customer Customer) {
-	switch c := customer.(type) {
-	case *EnterpriseCustomer:
-		fmt.Printf("analysis enterprise customer %s\n", c.name)
-	}
+//Visit 购买汽油
+func (c *clothFactory) Visit(g gas) {
+	fmt.Println("clothFactory: use gas with density", g.density)
 }

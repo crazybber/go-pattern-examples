@@ -1,15 +1,24 @@
 package visitor
 
-func ExampleRequestVisitor() {
-	c := &CustomerCol{}
-	c.Add(NewEnterpriseCustomer("A company"))
-	c.Add(NewEnterpriseCustomer("B company"))
-	c.Add(NewIndividualCustomer("bob"))
-	c.Accept(&ServiceRequestVisitor{})
-	// Output:
-	// serving enterprise customer A company
-	// serving enterprise customer B company
-	// serving individual customer bob
+import "testing"
+
+func TestVisitor(t *testing.T) {
+
+	//汽油提供给，制衣工厂
+	g := gas{density: 100}
+
+	//柴油，提供给军工厂
+	d := diesel{energy: 897}
+
+	//购买石油的客户
+	m := &militaryFactory{}
+
+	c := &clothFactory{}
+
+	g.Accept(c)
+
+	d.Accept(m)
+
 }
 
 func ExampleAnalysis() {
