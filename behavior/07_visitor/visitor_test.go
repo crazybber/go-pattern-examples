@@ -21,13 +21,27 @@ func TestVisitor(t *testing.T) {
 
 }
 
-func ExampleAnalysis() {
-	c := &CustomerCol{}
-	c.Add(NewEnterpriseCustomer("A company"))
-	c.Add(NewIndividualCustomer("bob"))
-	c.Add(NewEnterpriseCustomer("B company"))
-	c.Accept(&AnalysisVisitor{})
-	// Output:
-	// analysis enterprise customer A company
-	// analysis enterprise customer B company
+func TestGameVisitorsList(t *testing.T) {
+
+	retriveSetting := SettingVisitor{}
+	attacker := Attacker{}
+
+	pA := Player{"snow dance", 100} //角色名名：snow dance 100级
+	pB := Player{"fire dragon", 120}
+	npc := NPC{"groceries", true} //卖杂货的NPC，是能被打死的
+	env := SystemEnv{"made by china", "v1.2.11"}
+
+	//游戏对象
+	gameObjects := []IGameContext{pA, npc, env, pB}
+
+	for _, v := range gameObjects {
+		v.Accept(retriveSetting)
+	}
+
+	t.Log("\n---- ！！！attack！！！- --")
+
+	for _, v := range gameObjects {
+		v.Accept(attacker)
+	}
+
 }
