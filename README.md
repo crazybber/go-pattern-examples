@@ -27,7 +27,7 @@
 + [x] [策略模式(Strategy)](./behavior/12_strategy)
 + [ ] [状态模式(State)](./behavior/behavior16_state)
 + [ ] [备忘录模式(Memento)](./behavior/17_memento)
-+ [ ] [访问者模式(Visitor)](./behavior/07_visitor)
++ [x] [访问者模式(Visitor)](./behavior/07_visitor)
 + [ ] [解释器模式(Interpreter)](./behavior/08_interpreter)
 + [x] [职责链模式(Chain of Responsibility)](./behavior/05_chain_of_responsibility)
 
