@@ -2,7 +2,7 @@ package visitor
 
 import "testing"
 
-func TestVisitor(t *testing.T) {
+func TestSingleVisitor(t *testing.T) {
 
 	//汽油提供给，制衣工厂
 	g := gas{density: 100}
@@ -32,7 +32,7 @@ func TestGameVisitorsList(t *testing.T) {
 	env := SystemEnv{"made by china", "v1.2.11"}
 
 	//游戏对象
-	gameObjects := []IGameContext{pA, npc, env, pB}
+	gameObjects := []IGameObject{pA, npc, env, pB}
 
 	for _, v := range gameObjects {
 		v.Accept(retriveSetting)

@@ -2,8 +2,8 @@ package visitor
 
 import "fmt"
 
-//IGameContext 游戏上下文
-type IGameContext interface {
+//IGameObject 游戏上下文对象
+type IGameObject interface {
 	Accept(IGameVisitor)
 }
 
