@@ -5,82 +5,65 @@ import (
 	"strings"
 )
 
-type Node interface {
-	Interpret() int
+//用会议交流的例子
+// A表示左边发言者，B表示右边发言者
+// A "->"  B 表示  A说，B听,此时B不能发言。
+// A "<-"  B 表示  B说，A听,此时B不能发言。
+// A "<->" B 表示  A 和 B 可以自由发言。
+// A  "-"  B 表示  A 和 B 都不能发言，只能倾听。
+
+
+
+type IActionInterpret interface {
+	Interpret()
 }
 
-type ValNode struct {
-	val int
+//Speaker 发言者
+type Speaker struct {
+	Name string
+	Age int
+
 }
 
-func (n *ValNode) Interpret() int {
-	return n.val
+func (s *Speaker) Interpret()  {
+
 }
 
-type AddNode struct {
-	left, right Node
+//LeftIntroduce A向B介绍自己
+type LeftIntroduce struct {
+	leftSpeaker, rightSpeaker Speaker
 }
 
-func (n *AddNode) Interpret() int {
-	return n.left.Interpret() + n.right.Interpret()
+
+func (l *LeftIntroduce) Interpret()  {
+
 }
 
-type MinNode struct {
-	left, right Node
+//RightIntroduce B向A介绍自己
+type RightIntroduce struct {
+	leftSpeaker, rightSpeaker Speaker
 }
 
 func (n *MinNode) Interpret() int {
 	return n.left.Interpret() - n.right.Interpret()
 }
 
-type Parser struct {
-	exp   []string
-	index int
-	prev  Node
+//标识解析器
+type SignParser struct {
+	actionsMark   []string
 }
 
-func (p *Parser) Parse(exp string) {
+//Parse 标识解析器进行解析
+func (p *SignParser) Parse(exp string) {
 	p.exp = strings.Split(exp, " ")
 
-	for {
-		if p.index >= len(p.exp) {
-			return
-		}
-		switch p.exp[p.index] {
-		case "+":
-			p.prev = p.newAddNode()
-		case "-":
-			p.prev = p.newMinNode()
-		default:
-			p.prev = p.newValNode()
+	s := p.actionsMark[0]
+	for len(s) >0 {
+		switch s.actionsMark[0] {
+
 		}
 	}
 }
 
-func (p *Parser) newAddNode() Node {
-	p.index++
-	return &AddNode{
-		left:  p.prev,
-		right: p.newValNode(),
-	}
-}
 
-func (p *Parser) newMinNode() Node {
-	p.index++
-	return &MinNode{
-		left:  p.prev,
-		right: p.newValNode(),
-	}
-}
 
-func (p *Parser) newValNode() Node {
-	v, _ := strconv.Atoi(p.exp[p.index])
-	p.index++
-	return &ValNode{
-		val: v,
-	}
-}
-
-func (p *Parser) Result() Node {
-	return p.prev
-}
