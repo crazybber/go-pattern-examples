@@ -26,14 +26,15 @@ type ScenicArea struct {
 //PotsIterator 该对象的目的就是为了隐藏景区本身
 //PotsIterator 实现为一个游标迭代器
 type PotsIterator struct {
-	cursor    int
-	potsSlice []IPot
+	cursor, count int
+	potsSlice     []IPot
 }
 
 //Iterator 返回一个接待
 func (s *ScenicArea) Iterator() Iterator {
 	return &PotsIterator{
 		cursor:    0,
+		count:     s.count,
 		potsSlice: s.pots,
 	}
 }
@@ -63,16 +64,15 @@ func (s *PotsIterator) FirstPot() IPot {
 
 //IsLastPot 判断游标的位置
 func (s *PotsIterator) IsLastPot() bool {
-	return s.cursor == -1
+	return s.cursor == s.count
 }
 
 //Next 去路线上的下一个景点
 func (s *PotsIterator) Next() IPot {
-	if s.cursor+1 == len(s.potsSlice) {
-		s.cursor = -1 //设置到最后
+	s.cursor++
+	if s.IsLastPot() {
 		return nil
 	}
-	s.cursor++
 	return s.potsSlice[s.cursor]
 
 }
