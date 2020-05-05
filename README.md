@@ -38,7 +38,7 @@
 + [x] [简单工厂模式(Simple Factory)](./creation/02_simple_factory)
 + [x] [创建者模式(Builder)](./creation/03_builder)
 + [x] [单例模式(Singleton)](./creation/06_singleton)
-+ [ ] [WIP][对象池模式(Object Pool)](./creation/04_object_pool)
++ [x] [对象池模式(Object Pool)](./creation/04_object_pool)
 + [x] [工厂方法模式(Factory Method)](./creation/05_factory_method)
 + [x] [抽象工厂模式(Abstract Factory)](./creation/08_abstract_factory)
 + [x] [原型模式(Prototype)](./creation/07_prototype)
