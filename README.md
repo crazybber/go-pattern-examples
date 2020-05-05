@@ -26,9 +26,9 @@
 + [x] [模板方法模式(Template Method)](./behavior/05_template_method)
 + [x] [策略模式(Strategy)](./behavior/12_strategy)
 + [ ] [WIP][状态模式(State)](./behavior/behavior16_state)
-+ [ ] [WIP][备忘录模式(Memento)](./behavior/09_memento)
++ [ ] [备忘录模式(Memento)](./behavior/09_memento)
 + [x] [访问者模式(Visitor)](./behavior/07_visitor)
-+ [ ] [WIP][解释器模式(Interpreter)](./behavior/08_interpreter)
++ [x] [解释器模式(Interpreter)](./behavior/08_interpreter)
 + [x] [职责链模式(Chain of Responsibility)](./behavior/06_chain_of_responsibility)
 
 
