@@ -18,6 +18,7 @@
 
 ## 行为型模式 Behavior Patterns
 
++ [x] [备忘录模式(Memento)](./behavior/09_memento)
 + [x] [中介者模式(Mediator)](./behavior/01_mediator)
 + [x] [闭包选项模式(Function Option)](./behavior/02_option)
 + [x] [观察者模式(Observer)](./behavior/03_observer)
@@ -26,7 +27,6 @@
 + [x] [模板方法模式(Template Method)](./behavior/05_template_method)
 + [x] [策略模式(Strategy)](./behavior/12_strategy)
 + [ ] [WIP][状态模式(State)](./behavior/behavior16_state)
-+ [ ] [备忘录模式(Memento)](./behavior/09_memento)
 + [x] [访问者模式(Visitor)](./behavior/07_visitor)
 + [x] [解释器模式(Interpreter)](./behavior/08_interpreter)
 + [x] [职责链模式(Chain of Responsibility)](./behavior/06_chain_of_responsibility)
