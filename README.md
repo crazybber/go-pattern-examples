@@ -1,4 +1,4 @@
-# Go语言设计模式示例集合(Go Patterns Examples)
+# Golang工程模式示例集合(Go Patterns Examples)
 
 **包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式**
 
@@ -9,14 +9,14 @@
 
 **这些模式不是你总结的，也不是我的总结的，如果是你的写的，你可以按照自己的喜欢的感觉给这些套路取名字，让别人去费劲想。**
 
-## 姿势
+## 姿势 Ways
 
 + 所谓模式就是套路,如功夫,招有定式
 + 学习模式，就是学习套路，弄清楚套路要解决的目标场景，这很重要.
 + 这里就是以实际代码示例展示设计模式,通俗易懂
 + 除了常见的23种普适的设计模式,Go也有一些属于自己的模式
 
-## 行为型模式
+## 行为型模式 Behavior Patterns
 
 + [x] [中介者模式(Mediator)](./behavior/01_mediator)
 + [x] [闭包选项模式(Function Option)](./behavior/02_option)
@@ -32,7 +32,7 @@
 + [x] [职责链模式(Chain of Responsibility)](./behavior/06_chain_of_responsibility)
 
 
-## 创建型模式
+## 创建型模式 Creation Patterns
 
 + [x] [New模式(New)](./creation/01_new)
 + [x] [简单工厂模式(Simple Factory)](./creation/02_simple_factory)
@@ -44,7 +44,7 @@
 + [x] [原型模式(Prototype)](./creation/07_prototype)
 
 
-## 结构型模式
+## 结构型模式 Structure Patterns
 
 + [x] [外观模式(Facade)](./structure/01_facade)
 + [x] [适配器模式(Adapter)](./structure/02_adapter)
@@ -54,7 +54,7 @@
 + [x] [装饰器模式(Decorator)](./structure/06_decorator)
 + [x] [代理模式(Proxy)](./structure/07_proxy)
 
-## Go More
+## 更多 Go More
 
 + [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
 + [x] [时差模式(Time Profile)](./gomore/02_profiles)
@@ -72,24 +72,15 @@
 
 ## 参考资料(Design patters Articles)
 
-[go-patterns](https://github.com/crazybber/go-patterns)
-
-[design-pattern-tutorial](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
-
-[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)
-
-[design_pattern](http://c.biancheng.net/design_pattern)
-
-[go-resiliency](https://github.com/eapache/go-resiliency)
-
-[Behavioral](https://github.com/AlexanderGrom/go-patterns/tree/master/Behavioral)
-
-[go-patterns](https://github.com/sevenelevenlee/go-patterns)
-
-[go_design_pattern](https://github.com/monochromegane/go_design_pattern)
+| Patterns | Design Patterns | Status |
+|:-------:|:----------- |:------:|
+| [go-patterns](https://github.com/crazybber/go-patterns) | [design-pattern-tutorial](https://www.runoob.com/design-pattern/design-pattern-tutorial.html) |p|
+| [design_pattern](http://c.biancheng.net/design_pattern)|[golang-design-pattern](https://github.com/senghoo/golang-design-pattern) |p|
+[go-resiliency](https://github.com/eapache/go-resiliency) | [Behavioral](https://github.com/AlexanderGrom/go-patterns/tree/master/Behavioral)|v|
+| [go-patterns](https://github.com/sevenelevenlee/go-patterns) | [go_design_pattern](https://github.com/monochromegane/go_design_pattern)|p|
 
 
-## 更多
+## 更多 More
 
 需要重新温习下Go基础?看这里
 

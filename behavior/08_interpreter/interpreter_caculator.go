@@ -5,40 +5,54 @@ import (
 	"strings"
 )
 
-type Node interface {
+//解释自定义的加减法运算
+//输入：字符串
+//输出：整数值
+//将一个包含加减运算的字符串，正常解析出结果
+
+//Element 每个元素的解释接口
+type Element interface {
 	Interpret() int
 }
 
-type ValNode struct {
+//ValElement 值节点
+type ValElement struct {
 	val int
 }
 
-func (n *ValNode) Interpret() int {
+//Interpret 值解析单元的返回值
+func (n *ValElement) Interpret() int {
 	return n.val
 }
 
-type AddNode struct {
-	left, right Node
+//AddOperate Operation(+)
+type AddOperate struct {
+	left, right Element
 }
 
-func (n *AddNode) Interpret() int {
+//Interpret AddOperate
+func (n *AddOperate) Interpret() int {
 	return n.left.Interpret() + n.right.Interpret()
 }
 
-type MinNode struct {
-	left, right Node
+//MinOperate Operation(-)
+type MinOperate struct {
+	left, right Element
 }
 
-func (n *MinNode) Interpret() int {
+//Interpret MinOperate
+func (n *MinOperate) Interpret() int {
 	return n.left.Interpret() - n.right.Interpret()
 }
 
+//Parser machine
 type Parser struct {
 	exp   []string
 	index int
-	prev  Node
+	prev  Element
 }
 
+//Parse content
 func (p *Parser) Parse(exp string) {
 	p.exp = strings.Split(exp, " ")
 
@@ -48,39 +62,40 @@ func (p *Parser) Parse(exp string) {
 		}
 		switch p.exp[p.index] {
 		case "+":
-			p.prev = p.newAddNode()
+			p.prev = p.newAddOperte()
 		case "-":
-			p.prev = p.newMinNode()
+			p.prev = p.newMinOperte()
 		default:
-			p.prev = p.newValNode()
+			p.prev = p.newValElement()
 		}
 	}
 }
 
-func (p *Parser) newAddNode() Node {
+func (p *Parser) newAddOperte() Element {
 	p.index++
-	return &AddNode{
+	return &AddOperate{
 		left:  p.prev,
-		right: p.newValNode(),
+		right: p.newValElement(),
 	}
 }
 
-func (p *Parser) newMinNode() Node {
+func (p *Parser) newMinOperte() Element {
 	p.index++
-	return &MinNode{
+	return &MinOperate{
 		left:  p.prev,
-		right: p.newValNode(),
+		right: p.newValElement(),
 	}
 }
 
-func (p *Parser) newValNode() Node {
+func (p *Parser) newValElement() Element {
 	v, _ := strconv.Atoi(p.exp[p.index])
 	p.index++
-	return &ValNode{
+	return &ValElement{
 		val: v,
 	}
 }
 
-func (p *Parser) Result() Node {
+//Result of parsing result
+func (p *Parser) Result() Element {
 	return p.prev
 }
