@@ -32,3 +32,24 @@ func TestTroopCommand(t *testing.T) {
 	in.Execute()
 
 }
+
+func TestDrawCommand(t *testing.T) {
+
+	painter := PathPainter{}
+
+	painter.Append(&DrawCommand{&Position{1, 1}})
+	painter.Append(&DrawCommand{&Position{2, 2}})
+	painter.Append(&DrawCommand{&Position{1, 3}})
+
+	expect := "1.1\n2.2\n1.3\n"
+	if painter.Execute() != expect {
+		t.Errorf("Expect result to equal %s, but %s.\n", expect, painter.Execute())
+	}
+
+	painter.Undo()
+	expect = "1.1\n2.2\n"
+	if painter.Execute() != expect {
+		t.Errorf("Expect result to equal %s, but %s.\n", expect, painter.Execute())
+	}
+
+}
