@@ -22,7 +22,7 @@
 + [x] [中介者模式(Mediator)](./behavior/01_mediator)
 + [x] [闭包选项模式(Function Option)](./behavior/02_option)
 + [x] [观察者模式(Observer)](./behavior/03_observer)
-+ [ ] [WIP][命令模式(Command)](./behavior/11_command)
++ [x] [命令模式(Command)](./behavior/11_command)
 + [x] [迭代器模式(Iterator)](./behavior/04_iterator)
 + [x] [模板方法模式(Template Method)](./behavior/05_template_method)
 + [x] [策略模式(Strategy)](./behavior/12_strategy)
