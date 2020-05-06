@@ -8,36 +8,20 @@ func TestState(t *testing.T) {
 		"vibrating humming ... vibrating humming...vibrating humming..." +
 		"sun rise ,get up ,get up get up..."
 
-	mobile := NewMobileAlert()
+	//创建一个手机闹铃
+	mobile := NewAlert()
 
-	result := mobile.Alert()
-	result += mobile.Alert()
+	ringsSounds := mobile.Alert()
 
-	mobile.SetState(&MobileAlertSong{})
+	//叠加振铃声音，振铃响两遍
+	ringsSounds += mobile.Alert()
 
-	result += mobile.Alert()
+	//设置振铃的铃声
+	mobile.SetState(&AlertSong{})
 
-	if result != expect {
+	ringsSounds += mobile.Alert()
+
+	if ringsSounds != expect {
 		t.Errorf("Expect result to equal %s, but %s.\n", expect, result)
 	}
-}
-func TestWeeks(t *testing.T) {
-	ctx := NewDayContext()
-	todayAndNext := func() {
-		ctx.Today()
-		ctx.Next()
-	}
-
-	for i := 0; i < 8; i++ {
-		todayAndNext()
-	}
-	// Output:
-	// Sunday
-	// Monday
-	// Tuesday
-	// Wednesday
-	// Thursday
-	// Friday
-	// Saturday
-	// Sunday
 }

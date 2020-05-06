@@ -4,45 +4,45 @@ package state
 ////////////////////////////////
 //闹装有两种状态，震铃状态，非震铃状态
 
-// MobileAlertStater provides a common interface for various states.
-type MobileAlertStater interface {
+// AlertStater provides a common interface for various states.
+type AlertStater interface {
 	Alert() string
 }
 
-// MobileAlert implements an alert depending on its state.
-type MobileAlert struct {
-	state MobileAlertStater
+// Alert implements an alert depending on its state.
+type Alert struct {
+	state AlertStater
 }
 
-// Alert returns a alert string
-func (a *MobileAlert) Alert() string {
+// Alert returns a alert string 代表振铃
+func (a *Alert) Alert() string {
 	return a.state.Alert()
 }
 
 // SetState changes state
-func (a *MobileAlert) SetState(state MobileAlertStater) {
+func (a *Alert) SetState(state AlertStater) {
 	a.state = state
 }
 
-// NewMobileAlert is the MobileAlert constructor.
-func NewMobileAlert() *MobileAlert {
-	return &MobileAlert{state: &MobileAlertVibration{}}
+// NewAlert is the Alert constructor，默认振铃是震动
+func NewAlert() *Alert {
+	return &Alert{state: &AlertVibration{}}
 }
 
-// MobileAlertVibration implements vibration alert
-type MobileAlertVibration struct {
+// AlertVibration implements vibration alert
+type AlertVibration struct {
 }
 
-// Alert returns a alert string
-func (a *MobileAlertVibration) Alert() string {
+// Alert returns a alert string ，默认振铃
+func (a *AlertVibration) Alert() string {
 	return "vibrating humming ... vibrating humming...vibrating humming..."
 }
 
-// MobileAlertSong implements beep alert
-type MobileAlertSong struct {
+// AlertSong implements beep alert
+type AlertSong struct {
 }
 
-// Alert returns a alert string
-func (a *MobileAlertSong) Alert() string {
+// Alert returns a new alert string 歌曲振铃，设置这个状态模式，闹钟只会唱歌
+func (a *AlertSong) Alert() string {
 	return "sun rise ,get up ,get up get up..."
 }
