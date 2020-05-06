@@ -2,7 +2,7 @@
 
 **包括了[go-patterns](https://github.com/tmrts/go-patterns) 和[golang-design-pattern](https://github.com/senghoo/golang-design-pattern)中的全部模式**
 
-目前包括了**39种Go中常用的、面向工程化和最佳实践的模式/套路**，自然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
+目前包括了**42种Go中常用的、面向工程化和最佳实践的模式/套路**，自然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
 
 每一种设计模式都有其特定的应用场景和要解决的问题，了解模式的关键点就在于弄清这些目标场景和问题，千万不要纠结于：为什么这个模式叫这个名字，这个模式为啥要这样用？
 
@@ -59,12 +59,15 @@
 + [ ] [WIP][淡入模式(Fan-In)](./gomore/04_fan_in)
 + [ ] [WIP][淡出模式(Fan-Out)](./gomore/05_fan_out)
 + [ ] [WIP][熔断模式(circuit breaker)](./gomore/06_circuit_breaker)
-+ [ ] [WIP][限流模式(rate limiting))](./gomore/07_rate_limiting)
++ [x] [限流模式(rate limiting))](./gomore/07_rate_limiting)
 + [ ] [WIP][信号量模式(Semaphore)](./gomore/08_semaphore)
 + [ ] [WIP][并行模式(Parallelism)](./gomore/09_parallelism)
 + [ ] [WIP][生成器模式(Generators)](./gomore/10_generators)
 + [ ] [WIP][屏障模式(N-Barrier)](./gomore/11_n_barrier)
 + [ ] [WIP][有限并行模式(Bounded Parallelism)](./gomore/12_bounded_parallelism)
++ [ ] [WIP][批处理模式(batcher)](./gomore/13_batcher)
++ [ ] [WIP][最后期限模式(deadline)](./gomore/14_deadline)
++ [ ] [WIP][重试模式(retrier)](./gomore/15_retrier)
 
 ## 参考资料(Design patters Articles)
 
