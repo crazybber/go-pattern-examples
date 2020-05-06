@@ -31,7 +31,6 @@
 + [x] [解释器模式(Interpreter)](./behavior/08_interpreter)
 + [x] [职责链模式(Chain of Responsibility)](./behavior/06_chain_of_responsibility)
 
-
 ## 创建型模式 Creation Patterns
 
 + [x] [New模式(New)](./creation/01_new)
@@ -43,7 +42,6 @@
 + [x] [抽象工厂模式(Abstract Factory)](./creation/08_abstract_factory)
 + [x] [原型模式(Prototype)](./creation/07_prototype)
 
-
 ## 结构型模式 Structure Patterns
 
 + [x] [外观模式(Facade)](./structure/01_facade)
@@ -54,7 +52,7 @@
 + [x] [装饰器模式(Decorator)](./structure/06_decorator)
 + [x] [代理模式(Proxy)](./structure/07_proxy)
 
-## 更多 Go More
+## 更多模式 Go More Patterns
 
 + [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
 + [x] [时差模式(Time Profile)](./gomore/02_profiles)
@@ -68,7 +66,6 @@
 + [ ] [WIP][生成器模式(Generators)](./gomore/10_generators)
 + [ ] [WIP][屏障模式(N-Barrier)](./gomore/11_n_barrier)
 + [ ] [WIP][有限并行模式(Bounded Parallelism)](./gomore/12_bounded_parallelism)
-
 
 ## 参考资料(Design patters Articles)
 
