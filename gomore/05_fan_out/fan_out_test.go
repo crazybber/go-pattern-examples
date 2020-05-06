@@ -1,6 +1,6 @@
-fanout
+package fanout
 
-import concurrency
+import "concurrency"
 
 type taggingDispatcher struct {
 	Address string

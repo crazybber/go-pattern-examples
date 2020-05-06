@@ -4,12 +4,11 @@
 
 目前包括了**39种Go中常用的、面向工程化和最佳实践的模式/套路**，自然也包含常见的23种设计模式,重点是这里全部是例子、通俗易懂，甚至每个模式下的例子，改一下名字，稍微再增加几行代码就可以直接用在项目和工程中了。
 
-
 每一种设计模式都有其特定的应用场景和要解决的问题，了解模式的关键点就在于弄清这些目标场景和问题，千万不要纠结于：为什么这个模式叫这个名字，这个模式为啥要这样用？
 
 **这些模式不是你总结的，也不是我的总结的，如果是你的写的，你可以按照自己的喜欢的感觉给这些套路取名字，让别人去费劲想。**
 
-## 姿势 Ways
+## 了解一下姿势 Ways
 
 + 所谓模式就是套路,如功夫,招有定式
 + 学习模式，就是学习套路，弄清楚套路要解决的目标场景，这很重要.
@@ -26,7 +25,7 @@
 + [x] [迭代器模式(Iterator)](./behavior/04_iterator)
 + [x] [模板方法模式(Template Method)](./behavior/05_template_method)
 + [x] [策略模式(Strategy)](./behavior/12_strategy)
-+ [ ] [WIP][状态模式(State)](./behavior/behavior16_state)
++ [x] [状态模式(State)](./behavior/behavior16_state)
 + [x] [访问者模式(Visitor)](./behavior/07_visitor)
 + [x] [解释器模式(Interpreter)](./behavior/08_interpreter)
 + [x] [职责链模式(Chain of Responsibility)](./behavior/06_chain_of_responsibility)
@@ -75,7 +74,6 @@
 | [design_pattern](http://c.biancheng.net/design_pattern)|[golang-design-pattern](https://github.com/senghoo/golang-design-pattern) |p|
 [go-resiliency](https://github.com/eapache/go-resiliency) | [Behavioral](https://github.com/AlexanderGrom/go-patterns/tree/master/Behavioral)|v|
 | [go-patterns](https://github.com/sevenelevenlee/go-patterns) | [go_design_pattern](https://github.com/monochromegane/go_design_pattern)|p|
-
 
 ## 更多 More
 
