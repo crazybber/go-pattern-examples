@@ -1,8 +1,33 @@
 package state
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
-func TestState(t *testing.T) {
+func TestRobotState(t *testing.T) {
+
+	robot := NewSportRobot("home keeper")
+
+	//主动驱动行为
+	robot.Move()
+
+	//跑
+	robot.UpdateState(&RuningState{})
+
+	//跑一会
+	time.Sleep(time.Millisecond * 234)
+
+	//走
+	robot.UpdateState(&WalkState{})
+
+	//走一会儿
+	time.Sleep(time.Millisecond * 544)
+	//继续跑
+	robot.UpdateState(&RuningState{})
+
+}
+func TestAlarmState(t *testing.T) {
 
 	expect := "vibrating humming ... vibrating humming...vibrating humming..." +
 		"vibrating humming ... vibrating humming...vibrating humming..." +
@@ -22,6 +47,6 @@ func TestState(t *testing.T) {
 	ringsSounds += mobile.Alert()
 
 	if ringsSounds != expect {
-		t.Errorf("Expect result to equal %s, but %s.\n", expect, result)
+		t.Errorf("Expect result to equal %s, but %s.\n", expect, ringsSounds)
 	}
 }
