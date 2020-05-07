@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"testing"
+	"time"
 
 	"google.golang.org/grpc"
 )
@@ -29,10 +30,13 @@ func TestComplexStreamingFanOut(t *testing.T) {
 		pipeline: NewPipeline(builder, 2, true),
 	}
 
-	tagging.pipeline.Start(context.Background())
-
 	tagging.pipeline.Dispatch(messageContent{"all,please stay home", 1000})
 
+	tagging.pipeline.Start(context.Background())
+
+	//模拟处理过程，让工作者线程完成工作
+	time.Sleep(time.Second * 2)
+	t.Log("Done")
 }
 
 type Tagging struct {
