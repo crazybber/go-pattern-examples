@@ -75,7 +75,9 @@ func (p *Pipeline) Dispatch(msg interface{}) {
 
 //NewPipeline create a Workflow  with a dispacher builder and some workers
 func NewPipeline(d DispatcherBuilder, idle uint32, debug bool) *Pipeline {
+
 	ch := make(chan interface{}, MasterQueueSize)
+
 	wk := make(map[int]*worker)
 	for i := 0; i < MaxWorkers; i++ {
 		wk[i] = &worker{
