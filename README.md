@@ -56,7 +56,7 @@
 + [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
 + [x] [时差模式(Time Profile)](./gomore/02_profiles)
 + [x] [上下文模式(Context)](./gomore/03_context)
-+ [ ] [WIP][淡入模式(Fan-In)](./gomore/04_fan_in)
++ [x] [淡入模式(Fan-In)](./gomore/04_fan_in)
 + [ ] [WIP][淡出模式(Fan-Out)](./gomore/05_fan_out)
 + [ ] [WIP][熔断模式(circuit breaker)](./gomore/06_circuit_breaker)
 + [x] [限流模式(rate limiting))](./gomore/07_rate_limiting)
