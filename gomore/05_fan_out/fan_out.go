@@ -1,22 +1,28 @@
 package fanout
 
+import "sync"
+
 // Split 重复分发数据为多份
 // Split a channel into n channels that receive messages in a round-robin fashion.
 func Split(ch <-chan int, n int) []chan int {
 
 	//get a queue of chan
-	cs := make([]chan int, n)
+	//cs := make([]chan int, n) //创建了个chan 数组但是空的
 
-	// Distributes the work in a round robin fashion among the stated number
-	// of channels until the main channel has been closed. In that case, close
-	// all channels and return.
+	cs := []chan int{}
+	for i := 0; i < n; i++ {
+		cs = append(cs, make(chan int))
+	}
+
+	//Distributes the work in a round robin fashion among the stated number of channels
+	//until the main channel has been closed. In that case, close all channels and return.
 	distributeToChannels := func(ch <-chan int, cs []chan int) {
 		// Close every channel when the execution ends.
-		defer func(cs []chan int) {
+		defer func() {
 			for _, c := range cs {
 				close(c)
 			}
-		}(cs)
+		}()
 
 		//this version will block
 		for {
@@ -24,7 +30,7 @@ func Split(ch <-chan int, n int) []chan int {
 			select {
 			case val, ok := <-ch:
 				if !ok {
-					return
+					return // channel closed
 				}
 				//send value to all channels
 				for _, c := range cs {
@@ -42,47 +48,68 @@ func Split(ch <-chan int, n int) []chan int {
 
 // Split2  多工作者重复分发
 // Split2 a channel into n channels that receive messages in a round-robin fashion.
-func Split2(ch <-chan int, n int) []<-chan int {
+func Split2(ch <-chan int, n int) []chan int {
 
-	cs := make([]chan int, n)
+	cs := make([]chan int, 0)
+	for i := 0; i < n; i++ {
+		cs = append(cs, make(chan int))
+	}
 
-	//this version will block
-	for {
-		//get a target from ch
-		select {
-		case val, ok := <-ch:
-			if !ok {
-				return cs
-			}
-			//send value to all channels
+	distributeToChannels := func(ch <-chan int, cs []chan int) {
+		// Close every channel when the execution ends.
+		defer func() {
 			for _, c := range cs {
-				go func(tmpV int) {
-					c <- tmpV
+				close(c)
+			}
+		}()
+		var wg sync.WaitGroup
+		for {
+			//get a target from ch
+			select {
+			case val, ok := <-ch:
+				if !ok {
+					return
+				}
+				wg.Add(1)
+				go func(v int) {
+					defer wg.Done()
+					//send value to all channels
+					for _, c := range cs {
+						c <- val
+					}
+
 				}(val)
 
 			}
 		}
+
+		wg.Wait()
 	}
+
+	go distributeToChannels(ch, cs)
 
 	return cs
 }
 
 //Split3  随机分发到不同的目的地
 //Split3 a channel into n channels that receive messages in a round-robin fashion.
-func Split3(ch <-chan int, n int) []<-chan int {
+func Split3(ch <-chan int, n int) []chan int {
 
-	cs := make([]chan int, n)
+	cs := make([]chan int, 0)
+	for i := 0; i < n; i++ {
+		cs = append(cs, make(chan int))
+	}
 
 	// Distributes the work in a round robin fashion among the stated number
 	// of channels until the main channel has been closed. In that case, close
 	// all channels and return.
-	distributeToChannels := func(ch <-chan int, cs []chan<- int) {
+	distributeToChannels := func(ch <-chan int, cs []chan int) {
 		// Close every channel when the execution ends.
-		defer func(cs []chan<- int) {
+		defer func() {
 			for _, c := range cs {
 				close(c)
 			}
-		}(cs)
+		}()
 
 		for {
 			for _, c := range cs {
@@ -91,7 +118,6 @@ func Split3(ch <-chan int, n int) []<-chan int {
 					if !ok {
 						return
 					}
-
 					c <- val
 				}
 			}

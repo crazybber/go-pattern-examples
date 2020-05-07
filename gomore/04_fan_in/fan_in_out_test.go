@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestFanInOutNumbersSeq(T *testing.T) {
+func TestFanInOutNumbersSeq(t *testing.T) {
 
 	//一路输入源
 	dataStreams := []int{13, 44, 56, 99, 9, 45, 67, 90, 78, 23}
