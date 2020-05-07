@@ -51,13 +51,13 @@
 + [x] [装饰器模式(Decorator)](./structure/06_decorator)
 + [x] [代理模式(Proxy)](./structure/07_proxy)
 
-## 更多模式 Go More Patterns
+## 更多模式(同步/并发/安全访问/并行) Go More Patterns(Concurrency/Parallelism/Sync)
 
 + [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
 + [x] [时差模式(Time Profile)](./gomore/02_profiles)
 + [x] [上下文模式(Context)](./gomore/03_context)
 + [x] [扇入模式(Fan-In)](./gomore/04_fan_in)
-+ [ ] [WIP][扇出模式(Fan-Out)](./gomore/05_fan_out)
++ [x] [扇出模式(Fan-Out)](./gomore/05_fan_out)
 + [ ] [WIP][熔断模式(circuit breaker)](./gomore/06_circuit_breaker)
 + [x] [限流模式(rate limiting))](./gomore/07_rate_limiting)
 + [ ] [WIP][信号量模式(Semaphore)](./gomore/08_semaphore)
