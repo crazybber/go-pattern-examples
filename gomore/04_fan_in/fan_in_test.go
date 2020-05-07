@@ -5,22 +5,30 @@ import (
 	"testing"
 )
 
-func TestFanIn(T *testing.T) {
-	randomNumbers := []int{13, 44, 56, 99, 9, 45, 67, 90, 78, 23}
+func TestMergeDataSeq(T *testing.T) {
+
+	//第一路输入源
+	dataStreams1 := []int{13, 44, 56, 99, 9, 45, 67, 90, 78, 23}
 	// generate the common channel with inputs
-	inputChan := generatePipeline(randomNumbers)
+	inputChan1 := generateNumbersPipeline(dataStreams1)
 
-	// Fan-out to 2 Go-routine
-	c1 := squareNumber(inputChan)
-	c2 := squareNumber(inputChan)
+	//第二路输入源
+	dataStreams2 := []int{2, 4, 6, 9, 1, 1, 2, 3, 7, 8}
 
-	// Fan-in the resulting squared numbers
-	c := fanIn(c1, c2)
+	inputChan2 := generateNumbersPipeline(dataStreams2)
+
+	c1 := squareNumber(inputChan1)
+
+	c2 := squareNumber(inputChan2)
+
+	//fanIn data for the squared numbers
+	out := Merge(c1, c2)
+
 	sum := 0
 
-	// Do the summation
-	for i := 0; i < len(randomNumbers); i++ {
-		sum += <-c
+	for c := range out {
+		sum += c
 	}
-	fmt.Printf("Total Sum of Squares: %d", sum)
+
+	fmt.Printf("Total Sum of Squares by FanIn : %d\n", sum)
 }
