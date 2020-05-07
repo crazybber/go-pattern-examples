@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMergeDataSeq(T *testing.T) {
+func TestFanInNumbersSeq(T *testing.T) {
 
 	//第一路输入源
 	dataStreams1 := []int{13, 44, 56, 99, 9, 45, 67, 90, 78, 23}
