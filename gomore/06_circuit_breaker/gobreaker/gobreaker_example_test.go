@@ -3,16 +3,19 @@ package gobreaker
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
+	"testing"
 
 )
 
-var cb *gobreaker.CircuitBreaker
+var cb *CircuitBreaker
 
 
 func TestGoBreaker(t *testing.T) {
-	body, err := Get("http://www.google.com/robots.txt")
+
+	initBreaker()
+
+	body, err := Get("https://bing.com/robots.txt")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -22,14 +25,14 @@ func TestGoBreaker(t *testing.T) {
 
 
 func initBreaker() {
-	var st gobreaker.Settings
+	var st Settings
 	st.Name = "HTTP GET"
-	st.ReadyToTrip = func(counts gobreaker.Counts) bool {
+	st.ReadyToTrip = func(counts Counts) bool {
 		failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
 		return counts.Requests >= 3 && failureRatio >= 0.6
 	}
 
-	cb = gobreaker.NewCircuitBreaker(st)
+	cb = NewCircuitBreaker(st)
 }
 
 // Get wraps http.Get in CircuitBreaker.
@@ -53,5 +56,5 @@ func Get(url string) ([]byte, error) {
 	}
 
 	return body.([]byte), nil
-}
 
+}
