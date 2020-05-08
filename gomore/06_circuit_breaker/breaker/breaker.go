@@ -21,11 +21,10 @@ const (
 type Breaker struct {
 	errorThreshold, successThreshold int
 	timeout                          time.Duration
-
-	lock              sync.Mutex
-	state             uint32
-	errors, successes int
-	lastError         time.Time
+	lock                             sync.Mutex
+	state                            uint32
+	errors, successes                int
+	lastError                        time.Time
 }
 
 // New constructs a new circuit-breaker that starts closed.

@@ -20,6 +20,27 @@ func returnsSuccess() error {
 	return nil
 }
 
+func TestExampleBreaker(t *testing.T) {
+	breaker := New(3, 1, 5*time.Second)
+
+	for {
+		result := breaker.Run(func() error {
+			// communicate with some external service and
+			// return an error if the communication failed
+			return nil
+		})
+
+		switch result {
+		case nil:
+			// success!
+		case ErrBreakerOpen:
+			// our function wasn't run because the breaker was open
+		default:
+			// some other error
+		}
+	}
+}
+
 func TestBreakerErrorExpiry(t *testing.T) {
 	breaker := New(2, 1, 1*time.Second)
 
@@ -171,26 +192,5 @@ func TestBreakerAsyncStateTransitions(t *testing.T) {
 	// breaker is still closed
 	if err := breaker.Go(returnsSuccess); err != nil {
 		t.Error(err)
-	}
-}
-
-func ExampleBreaker() {
-	breaker := New(3, 1, 5*time.Second)
-
-	for {
-		result := breaker.Run(func() error {
-			// communicate with some external service and
-			// return an error if the communication failed
-			return nil
-		})
-
-		switch result {
-		case nil:
-			// success!
-		case ErrBreakerOpen:
-			// our function wasn't run because the breaker was open
-		default:
-			// some other error
-		}
 	}
 }

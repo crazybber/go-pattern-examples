@@ -8,13 +8,17 @@ import (
 
 //ErrServiceUnavailable for error
 var (
-	ErrServiceUnavailable = errors.New("Service Unavailable")
+	ErrTooManyRequests    = errors.New("too many requests")
+	ErrServiceUnavailable = errors.New("service unavailable")
 	FailureThreshold      = 10
 )
 
 //State of current switch
+type State int
+
+//states of CircuitBreaker
 const (
-	UnknownState uint = iota
+	UnknownState State = iota
 	FailureState
 	SuccessState
 )
@@ -24,19 +28,19 @@ type Circuit func(context.Context) error
 
 //Counter interface
 type Counter interface {
-	Count(uint)
+	Count(State)
 	ConsecutiveFailures() uint32
 	LastActivity() time.Time
 	Reset()
 }
 
 type counters struct {
-	state        uint
+	state        State
 	lastActivity time.Time
 	counts       uint32 //counts of failures
 }
 
-func (c *counters) Count(state uint) {
+func (c *counters) Count(state State) {
 
 }
 
