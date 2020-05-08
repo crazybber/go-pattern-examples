@@ -11,13 +11,14 @@ import (
 ////////////////////////////////
 //通常意义上是，连接消息队列之后就可以发送消息
 //当订阅著之后才会收到相关Topic消息的推送
+//当前，省略连接队列的步骤和操作代码
 ////////////////////////////////
 
 func TestMessageSubAndPubWithTopic(t *testing.T) {
 	var wg sync.WaitGroup
 
 	topicName := "seeking passengers"
-	//假设评估
+	//假设消息队列已经收到数据，加下来由topic处理
 	topic := Topic{
 		Name:          topicName,
 		UserQueueSize: 5,
@@ -26,8 +27,8 @@ func TestMessageSubAndPubWithTopic(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	wg.Add(1)
-	//user 1
 
+	//user 1
 	//用户tom订阅拼车消息,订阅的是车主发布的拼车消息
 	if subScriberTom, ok := topic.Subscribe(123, topicName); ok {
 
@@ -52,6 +53,7 @@ func TestMessageSubAndPubWithTopic(t *testing.T) {
 	}
 
 	wg.Add(1)
+
 	//订阅成功了
 	//发送一个消息
 
