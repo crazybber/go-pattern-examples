@@ -58,7 +58,7 @@
 + [x] [上下文模式(Context)](./gomore/03_context)
 + [x] [扇入模式(Fan-In)](./gomore/04_fan_in)
 + [x] [扇出模式(Fan-Out)](./gomore/05_fan_out)
-+ [ ] [WIP][熔断模式(circuit breaker)](./gomore/06_circuit_breaker)
++ [ ] [WIP][熔断模式(circuit breaker](./gomore/06_circuit_breaker)
 + [x] [限流模式(rate limiting))](./gomore/07_rate_limiting)
 + [ ] [WIP][信号量模式(Semaphore)](./gomore/08_semaphore)
 + [ ] [WIP][并行模式(Parallelism)](./gomore/09_parallelism)
