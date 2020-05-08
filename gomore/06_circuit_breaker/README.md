@@ -15,3 +15,8 @@ Circuit Breaker Pattern 也叫断路器模式，断路器设计模式是故障�
 如果电路连续故障超过指定的阈值，它将返回一个快速错误，一段时间后，它会重试请求并记录它。
 
 上下文用于传递参数.
+
+
+这文章不错
+
+https://blog.csdn.net/jeffrey11223/article/details/85541923
