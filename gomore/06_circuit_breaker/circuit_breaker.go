@@ -13,11 +13,8 @@ var (
 )
 
 //State of current switch
-type State int
-
-//State of current switch
 const (
-	UnknownState State = iota
+	UnknownState uint = iota
 	FailureState
 	SuccessState
 )
@@ -27,19 +24,19 @@ type Circuit func(context.Context) error
 
 //Counter interface
 type Counter interface {
-	Count(State)
+	Count(uint)
 	ConsecutiveFailures() uint32
 	LastActivity() time.Time
 	Reset()
 }
 
 type counters struct {
-	state        State
+	state        uint
 	lastActivity time.Time
 	counts       uint32 //counts of failures
 }
 
-func (c *counters) Count(State) {
+func (c *counters) Count(state uint) {
 
 }
 
