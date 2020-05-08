@@ -12,10 +12,10 @@ With limiting you can controll resource utilization and maintain quality of serv
 Go  supports rate limiting by using goroutines, channels, and tickers.
 */
 
-func rateLimiting() {
+func rateLimiting(requestQueueSize, allowedBurstCount int) {
 
-	requests := make(chan int, 5)
-	for i := 1; i <= 5; i++ {
+	requests := make(chan int, requestQueueSize)
+	for i := 1; i <= requestQueueSize; i++ {
 		requests <- i
 	}
 	close(requests)
@@ -27,13 +27,15 @@ func rateLimiting() {
 		fmt.Println("request", req, time.Now())
 	}
 
-	//突发限流器
-	burstyLimiter := make(chan time.Time, 3)
+	//允许的突发数量
+	burstyLimiter := make(chan time.Time, allowedBurstCount)
 
-	for i := 0; i < 3; i++ {
+	//初始化允许突发的数量
+	for i := 0; i < allowedBurstCount; i++ {
 		burstyLimiter <- time.Now()
 	}
 
+	//控制请求频率的计时器
 	go func() {
 		for t := range time.Tick(200 * time.Millisecond) {
 			burstyLimiter <- t
@@ -41,11 +43,12 @@ func rateLimiting() {
 	}()
 
 	//请求队列
-	burstyRequests := make(chan int, 5)
-	for i := 1; i <= 5; i++ {
+	burstyRequests := make(chan int, requestQueueSize)
+	for i := 1; i <= requestQueueSize; i++ {
 		burstyRequests <- i
 	}
 	close(burstyRequests)
+
 	for req := range burstyRequests {
 		<-burstyLimiter
 		fmt.Println("request", req, time.Now())
