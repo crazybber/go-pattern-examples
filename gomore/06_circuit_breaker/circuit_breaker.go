@@ -1,10 +1,24 @@
 package circuit
 
+/*
+ * @Description: https://github.com/crazybber
+ * @Author: Edward
+ * @Date: 2020-05-10 22:00:58
+ * @Last Modified by: Edward
+ * @Last Modified time: 2020-05-10 22:02:18
+ */
+
 import (
 	"context"
 	"errors"
+	"sync"
 	"time"
 )
+
+////////////////////////////////
+///使用HTTP请求的例子
+//每个搜索引擎时时刻刻都会遇到超大规模的请求的流量.
+//这里演示一个复杂一点的例子，同时使用Option 模式
 
 //ErrServiceUnavailable for error
 var (
@@ -12,6 +26,29 @@ var (
 	ErrServiceUnavailable = errors.New("service unavailable")
 	FailureThreshold      = 10
 )
+
+//StateCheckerHandler check state
+type StateCheckerHandler func(counts counters) bool
+
+//StateChangedEventHandler set event handle
+type StateChangedEventHandler func(name string, from State, to State)
+
+//Option set Options
+type Option func(opts *Options)
+
+//RequestBreaker for protection
+type RequestBreaker struct {
+	options    Options
+	mutex      sync.Mutex
+	state      State
+	generation uint64
+	counts     Counter
+}
+
+//NewRequestBreaker return a breaker
+func NewRequestBreaker() *RequestBreaker {
+
+}
 
 //State of current switch
 type State int
