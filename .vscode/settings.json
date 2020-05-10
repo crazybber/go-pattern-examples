@@ -1,25 +1,36 @@
 {
   "editor.tabSize": 2,
+  "editor.semanticTokenColorCustomizations":{
+      "enabled": true, // enable semantic highlighting for all themes
+      "rules": {
+          "typeParameter": "#352cea",
+          "type": {
+            "foreground": "#00aa00"
+          },
+          "parameter":"#4c70e7",
+      }
+  },
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "extensions.ignoreRecommendations": true,
   "workbench.colorCustomizations": {
     "activityBar.background": "#759570",
     "activityBar.activeBorder": "#cfd3ef",
-    "activityBar.foreground": "#e7e7e7",
+    "activityBar.foreground": "#15202b",
     "activityBar.hoverBackground": "#352cea",
-    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBar.inactiveForeground": "#15202b99",
     "activityBarBadge.background": "#cfd3ef",
     "activityBarBadge.foreground": "#15202b",
     "titleBar.activeBackground": "#5e7959",
     "titleBar.inactiveBackground": "#5e795999",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveForeground": "#e7e7e799",
-    "statusBarItem.hoverBackground": "#352cea",
+    "statusBarItem.hoverBackground": "#759570",
     "statusBar.foreground": "#e7e7e7",
-    "panel.border": "#759570",
-    "sideBar.border": "#759570",
-    "editorGroup.border": "#759570"
+    "activityBar.activeBackground": "#759570",
+    "statusBar.background": "#5e7959",
+    "statusBar.border": "#5e7959",
+    "titleBar.border": "#5e7959"
   },
   "go.languageServerFlags": [],
   "go.lintOnSave": "file",
@@ -36,6 +47,7 @@
   },
 "fileheader.Author":"Edward",
 "fileheader.tpl": "/* \r\n * @Description: https://github.com/crazybber \r\n * @Author: {author} \r\n * @Date: {createTime} \r\n * @Last Modified by:   {lastModifiedBy} \r\n * @Last Modified time: {updateTime} \r\n */\r\n",
-"fileheader.LastModifiedBy": "Edward"
+"fileheader.LastModifiedBy": "Edward",
+"peacock.color": "#5e7959"
 }
 //https://vscode.readthedocs.io/en/latest/getstarted/settings/
