@@ -6,6 +6,8 @@ Circuit Breaker Pattern 也叫断路器模式，断路器设计模式是故障�
 
 熔断用于保护流量过大，是一种保护行为。
 
+![熔断器状态机](../../images/breaker-state-machine.png)
+
 一些关键角色：
 
 ## Operation Counter 操作计数器
@@ -16,7 +18,7 @@ Circuit Breaker Pattern 也叫断路器模式，断路器设计模式是故障�
 
 如果电路连续故障超过指定的阈值，它将返回一个快速错误，一段时间后，它会重试请求并记录它。
 
-## Cotext
+## Context
 
 上下文用于传递参数.
 
