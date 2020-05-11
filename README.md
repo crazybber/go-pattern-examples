@@ -90,11 +90,11 @@ go test ./...
 | [菜鸟设计模式](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)|以Java为主的设计模式介绍|p|
 | [design_pattern](http://c.biancheng.net/design_pattern)|编程之家的设计模式|p|
 | [golang-design-pattern](https://github.com/senghoo/golang-design-pattern)|go语言的设计模式理论|p|
-| [go-resiliency](https://github.com/eapache/go-resiliency)|go的一些弹性模式 |v|
-| [Behavioral](https://github.com/AlexanderGrom/go-patterns/tree/master/Behavioral)|一些行为模式|v|
+| [go-resiliency](https://github.com/eapache/go-resiliency)|go的一些弹性模式 |m|
+| [Behavioral](https://github.com/AlexanderGrom/go-patterns/tree/master/Behavioral)|设计模式中的行为模式(俄语版)|m|
 | [go-patterns](https://github.com/sevenelevenlee/go-patterns)|一些设计模式 |p|
-| [go_design_pattern](https://github.com/monochromegane/go_design_pattern)|设计模式|p|
-| [microsoft-patterns](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn600223(v=pandp.10))|微软设计模式的文章|p|
+| [go_design_pattern](https://github.com/monochromegane/go_design_pattern)|日语版设计模式|p|
+| [microsoft-patterns](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn600223(v=pandp.10))|微软设计模式系列文章(24)|p/w|
 
 ## 更多 More
 
