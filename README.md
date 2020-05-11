@@ -64,6 +64,12 @@ go test ./...
 + [x] [装饰器模式(Decorator)](./structure/06_decorator)
 + [x] [代理模式(Proxy)](./structure/07_proxy)
 
+## 弹性模式 Resiliency Patterns
+
++ [ ] [WIP][熔断模式(circuit breaker](./resiliency/06_circuit_breaker)
++ [x] [限流模式(rate limiting))](./resiliency/07_rate_limiting)
++ [ ] [WIP][重试模式(retrier)](./resiliency/15_retrier)
+
 ## 更多模式(同步/并发/安全访问/并行) Go More Patterns(Concurrency/Parallelism/Sync)
 
 + [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
@@ -71,8 +77,6 @@ go test ./...
 + [x] [上下文模式(Context)](./gomore/03_context)
 + [x] [扇入模式(Fan-In)](./gomore/04_fan_in)
 + [x] [扇出模式(Fan-Out)](./gomore/05_fan_out)
-+ [ ] [WIP][熔断模式(circuit breaker](./gomore/06_circuit_breaker)
-+ [x] [限流模式(rate limiting))](./gomore/07_rate_limiting)
 + [ ] [WIP][信号量模式(Semaphore)](./gomore/08_semaphore)
 + [ ] [WIP][并行模式(Parallelism)](./gomore/09_parallelism)
 + [ ] [WIP][生成器模式(Generators)](./gomore/10_generators)
@@ -80,7 +84,7 @@ go test ./...
 + [ ] [WIP][有限并行模式(Bounded Parallelism)](./gomore/12_bounded_parallelism)
 + [ ] [WIP][批处理模式(batcher)](./gomore/13_batcher)
 + [ ] [WIP][最后期限模式(deadline)](./gomore/14_deadline)
-+ [ ] [WIP][重试模式(retrier)](./gomore/15_retrier)
+
 
 ## 参考资料(Design patters Articles)
 
