@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-11 10:55:28
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-11 10:55:28
+ * @Last Modified time: 2020-05-11 21:35:39
  */
 
 package circuit
@@ -19,15 +19,13 @@ var breaker *RequestBreaker
 
 func TestBasicBreaker(t *testing.T) {
 
-	var st Options
-	st.Name = "HTTP GET"
-	st.ReadyToTrip = func(counts counters) bool {
+	readyToTrip := func(counts counters) bool {
 		//失败率，可以由用户自己定义
 		failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
 		return counts.Requests >= 3 && failureRatio >= 0.6
 	}
 
-	breaker = NewRequestBreaker(st)
+	breaker = NewRequestBreaker(Name("HTTP GET"), ReadyToTrip(readyToTrip))
 
 	body, err := Get("https://bing.com/robots.txt")
 	if err != nil {

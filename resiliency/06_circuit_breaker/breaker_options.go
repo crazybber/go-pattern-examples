@@ -12,8 +12,8 @@ type Options struct {
 	OnStateChanged    StateChangedEventHandler
 }
 
-//SetName of breaker
-func SetName(name string) Option {
+//Name of breaker
+func Name(name string) Option {
 	return func(opts *Options) {
 		opts.Name = name
 	}
