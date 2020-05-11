@@ -1,3 +1,11 @@
+/*
+ * @Description: https://github.com/crazybber
+ * @Author: Edward
+ * @Date: 2020-05-11 17:43:55
+ * @Last Modified by: Edward
+ * @Last Modified time: 2020-05-11 17:43:55
+ */
+
 package retrier
 
 import (
@@ -7,7 +15,12 @@ import (
 	"time"
 )
 
-var i int
+var (
+	i      int
+	errFoo = errors.New("work cancel")
+	errBar = errors.New("work cancel 2")
+	errBaz = errors.New("work cancel 3")
+)
 
 func genWork(returns []error) func() error {
 	i = 0

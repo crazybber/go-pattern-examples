@@ -80,7 +80,7 @@ func (r *Retrier) sleep(ctx context.Context, t <-chan time.Time) error {
 }
 
 func (r *Retrier) calcSleep(i int) time.Duration {
-	// lock unsafe rand prng
+	// lock unsafe rand prog
 	r.randMu.Lock()
 	defer r.randMu.Unlock()
 	// take a random float in the range (-r.jitter, +r.jitter) and multiply it by the base amount
