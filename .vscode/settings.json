@@ -46,8 +46,7 @@
     "source.organizeImports": true
   },
 "fileheader.Author":"Edward",
-"fileheader.tpl": "/* \r\n * @Description: https://github.com/crazybber \r\n * @Author: {author} \r\n * @Date: {createTime} \r\n * @Last Modified by:   {lastModifiedBy} \r\n * @Last Modified time: {updateTime} \r\n */\r\n",
-"fileheader.LastModifiedBy": "Edward",
-"peacock.color": "#5e7959"
+"fileheader.tpl": "/*\r\n * @Description: https://github.com/crazybber\r\n * @Author: {author}\r\n * @Date: {createTime}\r\n * @Last Modified by: {lastModifiedBy}\r\n * @Last Modified time: {updateTime}\r\n */\r\n\r\n",
+"fileheader.LastModifiedBy": "Edward"
 }
 //https://vscode.readthedocs.io/en/latest/getstarted/settings/
