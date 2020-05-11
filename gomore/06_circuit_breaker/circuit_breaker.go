@@ -5,7 +5,7 @@ package circuit
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-10 22:02:18
+ * @Last Modified time: 2020-05-11 11:57:21
  */
 
 import (
@@ -46,8 +46,28 @@ type RequestBreaker struct {
 }
 
 //NewRequestBreaker return a breaker
-func NewRequestBreaker() *RequestBreaker {
+func NewRequestBreaker(opts ...Option) *RequestBreaker {
 
+	defaultOptions := Options{
+		Name:           "defaultBreakerName",
+		Expiry:         time.Now().Add(time.Second * 20),
+		Interval:       time.Second * 2,
+		Timeout:        time.Second * 5,
+		MaxRequests:    5,
+		ReadyToTrip:    func(counts counters) bool { return true },
+		OnStateChanged: func(name string, from State, to State) {},
+	}
+
+	for _, setOption := range opts {
+		setOption(&defaultOptions)
+
+	}
+
+	return &RequestBreaker{
+		options:    defaultOptions,
+		counts:     nil,
+		generation: 0,
+	}
 }
 
 //State of current switch

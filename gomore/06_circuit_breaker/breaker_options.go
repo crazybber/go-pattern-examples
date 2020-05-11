@@ -4,13 +4,12 @@ import "time"
 
 //Options for breaker
 type Options struct {
-	Name           string
-	Expiry         time.Time
-	Interval       time.Duration
-	Timeout        time.Duration
-	MaxRequests    uint32
-	ReadyToTrip    StateCheckerHandler
-	OnStateChanged StateChangedEventHandler
+	Name              string
+	Expiry            time.Time
+	Interval, Timeout time.Duration
+	MaxRequests       uint32
+	ReadyToTrip       StateCheckerHandler
+	OnStateChanged    StateChangedEventHandler
 }
 
 //SetName of breaker

@@ -1,3 +1,11 @@
+/*
+ * @Description: https://github.com/crazybber
+ * @Author: Edward
+ * @Date: 2020-05-11 10:44:52
+ * @Last Modified by: Edward
+ * @Last Modified time: 2020-05-11 10:44:52
+ */
+
 package parallelism
 
 import (
