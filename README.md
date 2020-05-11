@@ -69,8 +69,9 @@ go test ./...
 + [ ] [WIP][熔断模式(circuit breaker](./resiliency/06_circuit_breaker)
 + [x] [限流模式(rate limiting))](./resiliency/07_rate_limiting)
 + [ ] [WIP][重试模式(retrier)](./resiliency/15_retrier)
++ [ ] [WIP][最后期限模式(deadline)](./resiliency/14_deadline)
 
-## 更多模式(同步/并发/安全访问/并行) Go More Patterns(Concurrency/Parallelism/Sync)
+## 更多模式(同步/并发/并行) Go More Patterns(Concurrency/Parallelism/Sync)
 
 + [x] [发布订阅模式(Pub-Sub)](./gomore/01_messages)
 + [x] [时差模式(Time Profile)](./gomore/02_profiles)
@@ -83,7 +84,7 @@ go test ./...
 + [ ] [WIP][屏障模式(N-Barrier)](./gomore/11_n_barrier)
 + [ ] [WIP][有限并行模式(Bounded Parallelism)](./gomore/12_bounded_parallelism)
 + [ ] [WIP][批处理模式(batcher)](./gomore/13_batcher)
-+ [ ] [WIP][最后期限模式(deadline)](./gomore/14_deadline)
+
 
 
 ## 参考资料(Design patters Articles)
