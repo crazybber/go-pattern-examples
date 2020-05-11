@@ -8,6 +8,10 @@ Circuit Breaker Pattern 也叫断路器模式，断路器设计模式是故障�
 
 ![熔断器状态机](../../images/breaker-state-machine.png)
 
+状态变化流：
+
+![状态变化流](../../images/breaker-state-machine-flow.png)
+
 一些关键角色：
 
 ## Operation Counter 操作计数器

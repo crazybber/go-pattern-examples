@@ -5,7 +5,7 @@ package circuit
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-11 11:57:21
+ * @Last Modified time: 2020-05-11 17:46:20
  */
 
 import (
@@ -42,7 +42,7 @@ type RequestBreaker struct {
 	mutex      sync.Mutex
 	state      State
 	generation uint64
-	counts     Counter
+	counts     ICounter
 }
 
 //NewRequestBreaker return a breaker
@@ -52,7 +52,7 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 		Name:           "defaultBreakerName",
 		Expiry:         time.Now().Add(time.Second * 20),
 		Interval:       time.Second * 2,
-		Timeout:        time.Second * 5,
+		Timeout:        time.Second * 60, //default to 60 seconds
 		MaxRequests:    5,
 		ReadyToTrip:    func(counts counters) bool { return true },
 		OnStateChanged: func(name string, from State, to State) {},
@@ -83,8 +83,8 @@ const (
 //Circuit of action stream
 type Circuit func(context.Context) error
 
-//Counter interface
-type Counter interface {
+//ICounter interface
+type ICounter interface {
 	Count(State)
 	ConsecutiveFailures() uint32
 	LastActivity() time.Time
@@ -92,6 +92,7 @@ type Counter interface {
 }
 
 type counters struct {
+	Requests     uint32
 	state        State
 	lastActivity time.Time
 	counts       uint32 //counts of failures
@@ -115,7 +116,7 @@ func (c *counters) Reset() {
 }
 
 //NewCounter New Counter for Circuit Breaker
-func NewCounter() Counter {
+func NewCounter() ICounter {
 	return &counters{}
 }
 
@@ -127,7 +128,7 @@ func Breaker(c Circuit, failureThreshold uint32) Circuit {
 	return func(ctx context.Context) error {
 		if cnt.ConsecutiveFailures() >= failureThreshold {
 
-			canRetry := func(cnt Counter) bool {
+			canRetry := func(cnt ICounter) bool {
 				backoffLevel := cnt.ConsecutiveFailures() - failureThreshold
 
 				// Calculates when should the circuit breaker resume propagating requests
