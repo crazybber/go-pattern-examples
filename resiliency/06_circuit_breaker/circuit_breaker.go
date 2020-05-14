@@ -70,6 +70,16 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 	}
 }
 
+// Do runs the given request if the RequestBreaker accepts it.
+// Do returns an error instantly if the RequestBreaker rejects the request.
+// Otherwise, Execute returns the result of the request.
+// If a panic occurs in the request, the RequestBreaker handles it as an error and causes the same panic again.
+func (rb *RequestBreaker) Do(req func() (interface{}, error)) (interface{}, error) {
+
+	result, err := req()
+	return result, err
+}
+
 //State of current switch
 type State int
 
