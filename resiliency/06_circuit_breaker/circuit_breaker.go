@@ -70,13 +70,13 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 	}
 }
 
-// Do runs the given request if the RequestBreaker accepts it.
+// Do the given requested work if the RequestBreaker accepts it.
 // Do returns an error instantly if the RequestBreaker rejects the request.
 // Otherwise, Execute returns the result of the request.
 // If a panic occurs in the request, the RequestBreaker handles it as an error and causes the same panic again.
-func (rb *RequestBreaker) Do(req func() (interface{}, error)) (interface{}, error) {
-
-	result, err := req()
+func (rb *RequestBreaker) Do(work func() (interface{}, error)) (interface{}, error) {
+	//do work from requested user
+	result, err := work()
 	return result, err
 }
 
@@ -119,6 +119,7 @@ func (c *counters) Reset() {
 
 }
 
+//Count the failure and success
 func (c *counters) Count(statue State) {
 
 	switch statue {
@@ -132,9 +133,10 @@ func (c *counters) Count(statue State) {
 
 }
 
-//Breaker of circuit
-func Breaker(c Circuit, failureThreshold uint32) Circuit {
+//WrapperBreaker return  a Wrapper to hold request
+func WrapperBreaker(c Circuit, failureThreshold uint32) Circuit {
 
+	//内部计数器
 	cnt := counters{}
 
 	return func(ctx context.Context) error {

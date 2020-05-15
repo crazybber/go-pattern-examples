@@ -37,7 +37,7 @@ func TestBasicBreaker(t *testing.T) {
 
 // Get wraps http.Get in CircuitBreaker.
 func Get(url string) ([]byte, error) {
-	body, err := breaker.Execute(func() (interface{}, error) {
+	body, err := breaker.Do(func() (interface{}, error) {
 		resp, err := http.Get(url)
 		if err != nil {
 			return nil, err

@@ -27,5 +27,6 @@ Circuit Breaker Pattern 也叫断路器模式，断路器设计模式是故障�
 上下文用于传递参数.
 
 参考：
+
 <https://msdn.microsoft.com/en-us/library/dn589784.aspx>
 <https://blog.csdn.net/jeffrey11223/article/details/85541923>
