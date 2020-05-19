@@ -27,18 +27,8 @@ func TestBasicBreaker(t *testing.T) {
 
 	breaker = NewRequestBreaker(Name("HTTP GET"), ReadyToTrip(readyToTrip))
 
-	body, err := Get("https://bing.com/robots.txt")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	fmt.Println(string(body))
-}
-
-// Get wraps http.Get in CircuitBreaker.
-func Get(url string) ([]byte, error) {
 	body, err := breaker.Do(func() (interface{}, error) {
-		resp, err := http.Get(url)
+		resp, err := http.Get("https://bing.com/robots.txt")
 		if err != nil {
 			return nil, err
 		}
@@ -50,9 +40,8 @@ func Get(url string) ([]byte, error) {
 		return body, nil
 	})
 	if err != nil {
-		return nil, err
+		t.Fatal(err)
 	}
 
-	return body.([]byte), nil
-
+	fmt.Println(string(body.([]byte)))
 }
