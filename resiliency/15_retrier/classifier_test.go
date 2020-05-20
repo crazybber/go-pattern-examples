@@ -1,14 +1,7 @@
 package retrier
 
 import (
-	"errors"
 	"testing"
-)
-
-var (
-	errFoo = errors.New("FOO")
-	errBar = errors.New("BAR")
-	errBaz = errors.New("BAZ")
 )
 
 func TestDefaultClassifier(t *testing.T) {
