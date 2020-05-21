@@ -5,23 +5,24 @@ import (
 	"time"
 )
 
+//error info
 var (
-	ErrNoTickets      = errors.New("semaphore: could not aquire semaphore")
-	ErrIllegalRelease = errors.New("semaphore: can't release the semaphore without acquiring it first")
+	ErrNoTickets      = errors.New("could not acquire semaphore")
+	ErrIllegalRelease = errors.New("can't release the semaphore without acquiring it first")
 )
 
-// Interface contains the behavior of a semaphore that can be acquired and/or released.
-type Interface interface {
+// ISemaphore contains the behavior of a semaphore that can be acquired and/or released.
+type ISemaphore interface {
 	Acquire() error
 	Release() error
 }
 
-type implementation struct {
+type semp struct {
 	sem     chan struct{}
 	timeout time.Duration
 }
 
-func (s *implementation) Acquire() error {
+func (s *semp) Acquire() error {
 	select {
 	case s.sem <- struct{}{}:
 		return nil
@@ -30,19 +31,19 @@ func (s *implementation) Acquire() error {
 	}
 }
 
-func (s *implementation) Release() error {
+func (s *semp) Release() error {
 	select {
-	case _ = <-s.sem:
+	case <-s.sem:
 		return nil
 	case <-time.After(s.timeout):
 		return ErrIllegalRelease
 	}
 
-	return nil
 }
 
-func New(tickets int, timeout time.Duration) Interface {
-	return &implementation{
+//New return a new Semaphore
+func New(tickets int, timeout time.Duration) ISemaphore {
+	return &semp{
 		sem:     make(chan struct{}, tickets),
 		timeout: timeout,
 	}
