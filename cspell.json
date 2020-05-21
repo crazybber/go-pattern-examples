@@ -21,6 +21,7 @@
         "nums",
         "postgres",
         "retrier",
+        "semp",
         "stackless",
         "Stateful",
         "stretchr",

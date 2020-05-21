@@ -1,12 +1,12 @@
-package circuit
-
 /*
  * @Description: https://github.com/crazybber
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-21 15:59:40
+ * @Last Modified time: 2020-05-21 17:41:46
  */
+
+package circuit
 
 import (
 	"context"
@@ -28,25 +28,40 @@ var (
 	FailureThreshold      = 10 //最大失败次数--->失败阈值
 )
 
+// 默认的超时时间
+const defaultTimeout = time.Second * 30
+
 ////////////////////////////////
 /// 状态计数器 用以维护断路器内部的状态
 /// 无论是对象式断路器还是函数式断路器
 /// 都要用到计数器
 ////////////////////////////////
 
-//State of current switch
+//State  断路器本身的状态的
+//State  of switch int
 type State int
 
-//states of CircuitBreaker
+// state for breaker
 const (
-	UnknownState State = iota
+	StateClosed State = iota //默认的闭合状态，可以正常执行业务
+	StateHalfOpen
+	StateOpen
+)
+
+//OperationState of current 某一次操作的结果状态
+type OperationState int
+
+//states of CircuitBreaker
+//states: closed --->open ---> half open --> closed
+const (
+	UnknownState OperationState = iota
 	FailureState
 	SuccessState
 )
 
 //ICounter interface
 type ICounter interface {
-	Count(State)
+	Count(OperationState)
 	LastActivity() time.Time
 	Reset()
 	Total() uint32
@@ -54,7 +69,7 @@ type ICounter interface {
 
 type counters struct {
 	Requests             uint32 //连续的请求次数
-	lastState            State
+	lastState            OperationState
 	lastActivity         time.Time
 	counts               uint32 //counts of failures
 	TotalFailures        uint32
@@ -79,7 +94,7 @@ func (c *counters) Reset() {
 }
 
 //Count the failure and success
-func (c *counters) Count(statue State) {
+func (c *counters) Count(statue OperationState) {
 
 	switch statue {
 	case FailureState:
@@ -90,8 +105,7 @@ func (c *counters) Count(statue State) {
 	c.Requests++
 	c.lastActivity = time.Now() //更新活动时间
 	c.lastState = statue
-
-	//fire event here
+	//handle status change
 
 }
 
@@ -103,7 +117,7 @@ func (c *counters) Count(statue State) {
 type RequestBreaker struct {
 	options    Options
 	mutex      sync.Mutex
-	state      State //断路器的当前状态
+	state      OperationState //断路器的当前状态
 	generation uint64
 	counts     ICounter
 }
@@ -163,19 +177,21 @@ func Breaker(c Circuit, failureThreshold uint32) Circuit {
 
 	//内部计数器
 	cnt := counters{}
+	expired := time.Now()
+	currentState := StateClosed //默认是闭合状态
 
 	//ctx can be used hold parameters
 	return func(ctx context.Context) error {
 
 		if cnt.ConsecutiveFailures >= failureThreshold {
 
+			//断路器在half open状态下的控制逻辑
 			canRetry := func(cnt counters) bool {
 				//间歇时间，多个线程时候会存在同步文件需要lock操作
 				backoffLevel := cnt.ConsecutiveFailures - failureThreshold
 				// Calculates when should the circuit breaker resume propagating requests
 				// to the service
-				backoffDuration := time.Second << backoffLevel
-				shouldRetryAt := cnt.LastActivity().Add(backoffDuration)
+				shouldRetryAt := cnt.LastActivity().Add(time.Second << backoffLevel)
 				return time.Now().After(shouldRetryAt)
 			}
 
@@ -187,13 +203,26 @@ func Breaker(c Circuit, failureThreshold uint32) Circuit {
 			}
 		}
 
-		// 可以执行，则执行，并累计失败次数
+		// 可以执行，则执行，并累计成功和失败次数
 		// Unless the failure threshold is exceeded the wrapped service mimics the
 		// old behavior and the difference in behavior is seen after consecutive failures
 		// do the job
+
+		switch currentState {
+		case StateOpen:
+			if time.Now().Before(expired) {
+				currentState = StateHalfOpen //转为半开
+			}
+			return ErrServiceUnavailable
+		case StateClosed:
+		case StateHalfOpen:
+
+		}
+
 		if err := c(ctx); err != nil {
 			//统计状态
 			cnt.Count(FailureState)
+
 			return err
 		}
 
