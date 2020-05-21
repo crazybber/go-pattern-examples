@@ -176,6 +176,7 @@ func NewTwoStepCircuitBreaker(st Settings) *TwoStepCircuitBreaker {
 const defaultInterval = time.Duration(0) * time.Second
 const defaultTimeout = time.Duration(60) * time.Second
 
+//5 Consecutive Failures will break
 func defaultReadyToTrip(counts Counts) bool {
 	return counts.ConsecutiveFailures > 5
 }

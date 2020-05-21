@@ -2,13 +2,22 @@ package circuit
 
 import "time"
 
+//BreakConditionWatcher check state
+type BreakConditionWatcher func(counts counters) bool
+
+//StateChangedEventHandler set event handle
+type StateChangedEventHandler func(name string, from State, to State)
+
+//Option set Options
+type Option func(opts *Options)
+
 //Options for breaker
 type Options struct {
 	Name              string
 	Expiry            time.Time
 	Interval, Timeout time.Duration
 	MaxRequests       uint32
-	ReadyToTrip       StateCheckerHandler
+	WhenToBreak       BreakConditionWatcher //是否应该断开电路(打开电路开关)
 	OnStateChanged    StateChangedEventHandler
 }
 
@@ -58,9 +67,9 @@ func OnStateChanged(handler StateChangedEventHandler) Option {
 	}
 }
 
-//ReadyToTrip check traffic state ,to see if request can go
-func ReadyToTrip(readyToGo StateCheckerHandler) Option {
+//BreakIf check traffic state ,to see if request can go
+func BreakIf(whenCondition BreakConditionWatcher) Option {
 	return func(opts *Options) {
-		opts.ReadyToTrip = readyToGo
+		opts.WhenToBreak = whenCondition
 	}
 }
