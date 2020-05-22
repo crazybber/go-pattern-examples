@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-22 12:42:34
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 16:48:56
+ * @Last Modified time: 2020-05-22 17:21:40
  */
 
 package circuit
@@ -31,7 +31,7 @@ const (
 )
 
 type simpleCounter struct {
-	lastState            OperationState
+	lastOpResult         OperationState
 	lastActivity         time.Time
 	ConsecutiveSuccesses uint32
 	ConsecutiveFailures  uint32
@@ -44,21 +44,21 @@ func (c *simpleCounter) LastActivity() time.Time {
 func (c *simpleCounter) Reset() {
 	ct := &simpleCounter{}
 	ct.lastActivity = c.lastActivity
-	ct.lastState = UnknownState
+	ct.lastOpResult = UnknownState
 	c = ct
 }
 
 //Count the failure and success
-func (c *simpleCounter) Count(statue OperationState) {
+func (c *simpleCounter) Count(lastState OperationState) {
 
-	switch statue {
+	switch lastState {
 	case FailureState:
 		c.ConsecutiveFailures++
 	case SuccessState:
 		c.ConsecutiveSuccesses++
 	}
 	c.lastActivity = time.Now() //更新活动时间
-	c.lastState = statue
+	c.lastOpResult = lastState
 	//handle status change
 }
 

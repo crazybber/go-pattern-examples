@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-11 10:55:28
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 16:37:21
+ * @Last Modified time: 2020-05-22 17:21:06
  */
 
 package circuit
@@ -18,6 +18,16 @@ import (
 )
 
 var breaker *RequestBreaker
+
+var onStateChangeEvent = func(name string, from, to State) {
+	fmt.Println("name:", name, "from:", from, "to", to)
+}
+
+var whenConditionOccurred = func(cnter counters) bool {
+	//失败率，可以由用户自己定义
+	failureRatio := float64(cnter.TotalFailures) / float64(cnter.Requests)
+	return cnter.Requests >= 3 && failureRatio >= 0.6
+}
 
 func TestObjectBreaker(t *testing.T) {
 
@@ -34,13 +44,7 @@ func TestObjectBreaker(t *testing.T) {
 		return body, nil
 	}
 
-	whenCondition := func(counts counters) bool {
-		//失败率，可以由用户自己定义
-		failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
-		return counts.Requests >= 3 && failureRatio >= 0.6
-	}
-
-	breaker = NewRequestBreaker(Name("HTTP GET"), BreakIf(whenCondition))
+	breaker = NewRequestBreaker(Name("HTTP GET"), BreakIf(whenConditionOccurred), WithStateChanged(onStateChangeEvent))
 
 	body, err := breaker.Do(jobToDo)
 	if err != nil {

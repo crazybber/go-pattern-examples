@@ -3,7 +3,7 @@ package circuit
 import "time"
 
 //BreakConditionWatcher check state
-type BreakConditionWatcher func(counts counters) bool
+type BreakConditionWatcher func(cnter counters) bool
 
 //StateChangedEventHandler set event handle
 type StateChangedEventHandler func(name string, from State, to State)
@@ -60,8 +60,8 @@ func Expiry(expiry time.Time) Option {
 	}
 }
 
-//OnStateChanged set handle of ChangedHandle
-func OnStateChanged(handler StateChangedEventHandler) Option {
+//WithStateChanged set handle of ChangedHandle
+func WithStateChanged(handler StateChangedEventHandler) Option {
 	return func(opts *Options) {
 		opts.OnStateChanged = handler
 	}

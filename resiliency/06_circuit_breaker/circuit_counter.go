@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-22 12:41:54
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 16:47:37
+ * @Last Modified time: 2020-05-22 17:22:35
  */
 
 package circuit
@@ -40,7 +40,6 @@ type ICounter interface {
 
 type counters struct {
 	Requests             uint32 //连续的请求次数
-	lastState            OperationState
 	lastActivity         time.Time
 	TotalFailures        uint32
 	TotalSuccesses       uint32
@@ -59,7 +58,6 @@ func (c *counters) LastActivity() time.Time {
 func (c *counters) Reset() {
 	ct := &counters{}
 	ct.lastActivity = c.lastActivity
-	ct.lastState = c.lastState
 	c = ct
 }
 
@@ -74,7 +72,7 @@ func (c *counters) Count(statue OperationState) {
 	}
 	c.Requests++
 	c.lastActivity = time.Now() //更新活动时间
-	c.lastState = statue
+	//	c.lastOpResult = statue
 	//handle status change
 
 }

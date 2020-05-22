@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 16:44:57
+ * @Last Modified time: 2020-05-22 17:25:56
  */
 
 package circuit
@@ -36,15 +36,16 @@ const (
 ////////////////////////////////
 //way 2 对象式断路器
 // 高级模式
+// 支持多工作者模式
 ////////////////////////////////
 
 //RequestBreaker for protection
 type RequestBreaker struct {
 	options    Options
 	mutex      sync.Mutex
-	state      OperationState //断路器的当前状态
+	state      State
 	generation uint64
-	counts     ICounter
+	cnter      ICounter
 }
 
 //NewRequestBreaker return a breaker
@@ -56,7 +57,7 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 		Interval:       time.Second * 2,  // interval to check status
 		Timeout:        time.Second * 60, //default to 60 seconds
 		MaxRequests:    5,
-		WhenToBreak:    func(counts counters) bool { return counts.ConsecutiveFailures > 2 },
+		WhenToBreak:    func(cnter counters) bool { return cnter.ConsecutiveFailures > 2 },
 		OnStateChanged: func(name string, fromPre State, toCurrent State) {},
 	}
 
@@ -67,7 +68,7 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 
 	return &RequestBreaker{
 		options:    defaultOptions,
-		counts:     &counters{},
+		cnter:      &counters{},
 		generation: 0,
 	}
 }
@@ -79,14 +80,18 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 func (rb *RequestBreaker) Do(work func() (interface{}, error)) (interface{}, error) {
 
 	//before
-	fmt.Println("before do : request:", rb.counts.Total())
+	fmt.Println("before do : request:", rb.cnter.Total())
 
 	//handle status
+
+	if rb.state == StateOpen && rb.options.Expiry.Before(time.Now()) {
+
+	}
 
 	//do work from requested user
 	result, err := work()
 
-	fmt.Println("after do : request:", rb.counts.Total())
+	fmt.Println("after do : request:", rb.cnter.Total())
 
 	return result, err
 }
