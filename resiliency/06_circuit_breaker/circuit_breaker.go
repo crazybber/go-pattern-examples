@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-21 17:41:46
+ * @Last Modified time: 2020-05-22 14:22:42
  */
 
 package circuit
@@ -31,23 +31,6 @@ var (
 const (
 	defaultTimeout          = time.Second * 30
 	defaultSuccessThreshold = 2
-)
-
-////////////////////////////////
-/// 状态计数器 用以维护断路器内部的状态
-/// 无论是对象式断路器还是函数式断路器
-/// 都要用到计数器
-////////////////////////////////
-
-//State  断路器本身的状态的
-//State  of switch int
-type State int
-
-// state for breaker
-const (
-	StateClosed State = iota //默认的闭合状态，可以正常执行业务
-	StateHalfOpen
-	StateOpen
 )
 
 ////////////////////////////////
