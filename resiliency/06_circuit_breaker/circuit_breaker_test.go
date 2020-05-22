@@ -31,7 +31,7 @@ var whenConditionOccurred = func(cnter counters) bool {
 
 func TestObjectBreaker(t *testing.T) {
 
-	jobToDo := func() (interface{}, error) {
+	jobToDo := func(ctx context.Context) (interface{}, error) {
 		resp, err := http.Get("https://bing.com/robots.txt")
 		if err != nil {
 			return nil, err

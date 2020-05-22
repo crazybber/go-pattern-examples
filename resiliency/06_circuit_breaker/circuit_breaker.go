@@ -9,10 +9,12 @@
 package circuit
 
 import (
-	"errors"
+	"context"
+	"context
+	"erros"
 	"fmt"
 	"sync"
-	"time"
+	time"
 )
 
 ////////////////////////////////
@@ -77,19 +79,26 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 // Do returns an error instantly if the RequestBreaker rejects the request.
 // Otherwise, Execute returns the result of the request.
 // If a panic occurs in the request, the RequestBreaker handles it as an error and causes the same panic again.
-func (rb *RequestBreaker) Do(work func() (interface{}, error)) (interface{}, error) {
+func (rb *RequestBreaker) Do(work func(ctx context.Context) (interface{}, error)) (interface{}, error) {
 
 	//before
 	fmt.Println("before do : request:", rb.cnter.Total())
 
-	//handle status
-
+	rb.mutex.Lock()
+	//handle status of Open to HalfOpen
 	if rb.state == StateOpen && rb.options.Expiry.Before(time.Now()) {
 
 	}
+	rb.mutex.Unlock()
 
 	//do work from requested user
-	result, err := work()
+	result, err := work(rb.options.Ctx)
+
+	if err != nil {
+		rb.cnter.Count(FailureState)
+	} else {
+		rb.cnter.Count(SuccessState)
+	}
 
 	fmt.Println("after do : request:", rb.cnter.Total())
 

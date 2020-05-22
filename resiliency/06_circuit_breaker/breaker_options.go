@@ -1,6 +1,9 @@
 package circuit
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 //BreakConditionWatcher check state
 type BreakConditionWatcher func(cnter counters) bool
@@ -19,6 +22,7 @@ type Options struct {
 	MaxRequests       uint32
 	WhenToBreak       BreakConditionWatcher //是否应该断开电路(打开电路开关)
 	OnStateChanged    StateChangedEventHandler
+	Ctx               context.Context
 }
 
 //Name of breaker
