@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 14:22:42
+ * @Last Modified time: 2020-05-22 16:44:57
  */
 
 package circuit
@@ -34,7 +34,8 @@ const (
 )
 
 ////////////////////////////////
-//way 1 对象式断路器
+//way 2 对象式断路器
+// 高级模式
 ////////////////////////////////
 
 //RequestBreaker for protection
@@ -79,6 +80,8 @@ func (rb *RequestBreaker) Do(work func() (interface{}, error)) (interface{}, err
 
 	//before
 	fmt.Println("before do : request:", rb.counts.Total())
+
+	//handle status
 
 	//do work from requested user
 	result, err := work()

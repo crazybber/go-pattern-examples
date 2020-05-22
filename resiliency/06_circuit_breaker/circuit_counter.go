@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-22 12:41:54
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 14:21:00
+ * @Last Modified time: 2020-05-22 16:47:37
  */
 
 package circuit
@@ -42,7 +42,6 @@ type counters struct {
 	Requests             uint32 //连续的请求次数
 	lastState            OperationState
 	lastActivity         time.Time
-	counts               uint32 //counts of failures
 	TotalFailures        uint32
 	TotalSuccesses       uint32
 	ConsecutiveSuccesses uint32

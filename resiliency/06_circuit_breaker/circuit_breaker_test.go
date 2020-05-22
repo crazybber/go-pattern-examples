@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-11 10:55:28
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-21 14:08:53
+ * @Last Modified time: 2020-05-22 16:37:21
  */
 
 package circuit
@@ -12,13 +12,14 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"testing"
 )
 
 var breaker *RequestBreaker
 
-func TestBasicBreaker(t *testing.T) {
+func TestObjectBreaker(t *testing.T) {
 
 	jobToDo := func() (interface{}, error) {
 		resp, err := http.Get("https://bing.com/robots.txt")
@@ -72,6 +73,8 @@ func TestFunctionalBreaker(t *testing.T) {
 	params := context.TODO()
 
 	// do the job as usually
-	circuitWork(params)
+	res := circuitWork(params)
+
+	log.Print("\nresult:", res)
 
 }
