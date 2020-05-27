@@ -10,6 +10,7 @@
           "parameter":"#4c70e7",
       }
   },
+  "extensions.showRecommendationsOnlyOnDemand": true,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "extensions.ignoreRecommendations": true,
