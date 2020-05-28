@@ -1,4 +1,5 @@
 {
+  "window.autoDetectColorScheme": false,
   "editor.tabSize": 2,
   "editor.semanticTokenColorCustomizations":{
       "enabled": true, // enable semantic highlighting for all themes
@@ -22,15 +23,15 @@
     "activityBar.inactiveForeground": "#15202b99",
     "activityBarBadge.background": "#cfd3ef",
     "activityBarBadge.foreground": "#15202b",
-    "titleBar.activeBackground": "#5e7959",
-    "titleBar.inactiveBackground": "#5e795999",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveForeground": "#e7e7e799",
     "statusBarItem.hoverBackground": "#759570",
     "statusBar.foreground": "#e7e7e7",
     "activityBar.activeBackground": "#759570",
     "statusBar.background": "#5e7959",
     "statusBar.border": "#5e7959",
+    "titleBar.activeBackground": "#5e7959",
+    "titleBar.inactiveBackground": "#5e795999",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveForeground": "#e7e7e799",
     "titleBar.border": "#5e7959"
   },
   "go.languageServerFlags": [],
