@@ -66,8 +66,8 @@ go test ./...
 
 ## 弹性模式 Resiliency Patterns
 
-+ [ ] [WIP][熔断模式(circuit breaker](./resiliency/06_circuit_breaker)
-+ [x] [限流模式(rate limiting))](./resiliency/07_rate_limiting)
++ [x] [熔断模式(circuit breaker)](./resiliency/06_circuit_breaker)
++ [x] [限流模式(rate limiting)](./resiliency/07_rate_limiting)
 + [ ] [WIP][重试模式(retrier)](./resiliency/15_retrier)
 + [ ] [WIP][最后期限模式(deadline)](./resiliency/14_deadline)
 

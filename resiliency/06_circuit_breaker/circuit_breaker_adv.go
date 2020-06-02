@@ -82,33 +82,32 @@ func (rb *RequestBreaker) Do(work func(ctx context.Context) (interface{}, error)
 
 	//before
 	fmt.Println("before do : request:", rb.cnter.Total())
-
 	rb.mutex.Lock()
-	//handle status of Open to HalfOpen
-	if rb.state == StateOpen && rb.options.Expiry.Before(time.Now()) {
-		rb.state = StateHalfOpen
-		rb.cnter.Reset()
-		rb.options.OnStateChanged(rb.options.Name, StateOpen, StateHalfOpen)
-	}
-	rb.mutex.Unlock()
-
 	switch rb.state {
 	case StateOpen:
 		return nil, ErrTooManyRequests
 	case StateHalfOpen:
 		//do work from requested user
-		result, err := work(rb.options.Ctx)
-		if err != nil {
-			rb.cnter.Count(FailureState)
+		//	result, err := work(rb.options.Ctx)
+		// if err != nil {
+		// 	rb.cnter.Count(FailureState)
+		// } else {
+		// 	rb.cnter.Count(SuccessState)
+		// 	return result, nil
+		// }
 
-		} else {
-			rb.cnter.Count(SuccessState)
-			return result, nil
+		if rb.options.Expiry.Before(time.Now()) {
+			rb.state = StateHalfOpen
+			rb.cnter.Reset()
+			rb.options.OnStateChanged(rb.options.Name, StateOpen, StateHalfOpen)
 		}
 
 	case StateClosed:
 	}
 
+	rb.mutex.Unlock()
+
+	//do work
 	//do work from requested user
 	result, err := work(rb.options.Ctx)
 
