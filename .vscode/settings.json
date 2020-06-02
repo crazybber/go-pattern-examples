@@ -32,7 +32,7 @@
     "statusBar.border": "#5e7959",
     "titleBar.border": "#5e7959"
   },
-  "go.languageServerFlags": [],
+  "go.useLanguageServer": true,
   "go.lintOnSave": "file",
   "go.vetOnSave": "package",
   "go.useCodeSnippetsOnFunctionSuggest": true,
