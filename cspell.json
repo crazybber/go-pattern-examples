@@ -8,8 +8,10 @@
     // words - list of words to be always considered correct
     "words": [
         "bber",
+        "cnter",
         "crazybber",
         "fanin",
+        "gobreaker",
         "gomore",
         "Goroutines",
         "ifelse",
@@ -27,6 +29,7 @@
         "stretchr",
         "struct",
         "Structs",
+        "tscb",
         "xargs"
     ],
     // flagWords - list of words to be always considered incorrect
