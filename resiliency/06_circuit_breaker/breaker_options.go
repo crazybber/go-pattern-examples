@@ -22,6 +22,8 @@ type Options struct {
 	MaxRequests       uint32
 	WhenToBreak       BreakConditionWatcher //是否应该断开电路(打开电路开关)
 	OnStateChanged    StateChangedEventHandler
+	SuccessShoulder   uint32
+	FailureShoulder   uint32
 	Ctx               context.Context
 }
 
