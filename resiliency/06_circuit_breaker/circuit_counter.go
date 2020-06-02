@@ -25,6 +25,7 @@ const (
 	StateClosed State = iota //默认的闭合状态，可以正常执行业务
 	StateHalfOpen
 	StateOpen
+	StateUnknown
 )
 
 //OperationState of current 某一次操作的结果状态
