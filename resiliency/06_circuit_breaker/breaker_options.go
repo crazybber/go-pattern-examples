@@ -1,3 +1,11 @@
+/*
+ * @Description: https://github.com/crazybber
+ * @Author: Edward
+ * @Date: 2020-06-02 23:57:40
+ * @Last Modified by: Edward
+ * @Last Modified time: 2020-06-02 23:57:40
+ */
+
 package circuit
 
 import (
@@ -22,8 +30,6 @@ type Options struct {
 	MaxRequests       uint32
 	WhenToBreak       BreakConditionWatcher //是否应该断开电路(打开电路开关)
 	OnStateChanged    StateChangedEventHandler
-	SuccessShoulder   uint32
-	FailureShoulder   uint32
 	Ctx               context.Context
 }
 
