@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-06-02 23:57:40
  * @Last Modified by: Edward
- * @Last Modified time: 2020-06-02 23:57:40
+ * @Last Modified time: 2020-06-03 23:50:17
  */
 
 package circuit
@@ -30,6 +30,7 @@ type Options struct {
 	MaxRequests       uint32
 	WhenToBreak       BreakConditionWatcher //是否应该断开电路(打开电路开关)
 	OnStateChanged    StateChangedEventHandler
+	ShoulderToOpen    uint32
 	Ctx               context.Context
 }
 

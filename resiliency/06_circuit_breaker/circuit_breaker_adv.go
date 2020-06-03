@@ -3,7 +3,7 @@
  * @Author: Edward
  * @Date: 2020-05-10 22:00:58
  * @Last Modified by: Edward
- * @Last Modified time: 2020-05-22 17:25:56
+ * @Last Modified time: 2020-06-03 23:54:29
  */
 
 package circuit
@@ -85,18 +85,14 @@ func (rb *RequestBreaker) Do(work func(ctx context.Context) (interface{}, error)
 	//before
 	fmt.Println("before do : request:", rb.cnter.Total())
 	rb.mutex.Lock()
-	switch rb.state {
-	case StateOpen:
+
+	//如果是断开状态，并且超时了，转到半开状态，记录
+	if rb.state == StateOpen && rb.options.Expiry.Before(time.Now()) {
+		preState = rb.state
+		rb.state = StateHalfOpen
+		rb.cnter.Reset()
+	} else {
 		return nil, ErrTooManyRequests
-	case StateHalfOpen:
-		//如果是断开状态，并且超时了，转到半开状态，记录
-		if rb.options.Expiry.Before(time.Now()) {
-			rb.state = StateHalfOpen
-			preState = rb.state
-			rb.cnter.Reset()
-
-		}
-
 	}
 
 	rb.mutex.Unlock()
@@ -111,18 +107,29 @@ func (rb *RequestBreaker) Do(work func(ctx context.Context) (interface{}, error)
 		rb.cnter.Count(FailureState)
 		//如果是在半开状态下的失败，立即打开开关
 		if rb.state == StateHalfOpen {
-			rb.state = StateOpen //转为打开
+			rb.state = StateOpen                                                 //转为打开
+			rb.options.OnStateChanged(rb.options.Name, StateHalfOpen, StateOpen) //半开到打开
 		} else if rb.state == StateClosed {
 			if rb.options.WhenToBreak(rb.cnter) {
-				rb.state = StateOpen //打开开关
+				rb.state = StateOpen                                               //打开开关
+				rb.options.OnStateChanged(rb.options.Name, StateClosed, StateOpen) //关闭到打开
 				rb.cnter.Reset()
 			}
 		}
 
 	} else {
+		//成功了.
 		rb.cnter.Count(SuccessState)
-		if preState == StateOpen && rb.state == StateHalfOpen {
-			rb.options.OnStateChanged(rb.options.Name, StateOpen, StateHalfOpen)
+		if rb.state == StateHalfOpen {
+			if preState == StateOpen {
+				preState = StateHalfOpen
+				rb.options.OnStateChanged(rb.options.Name, StateOpen, StateHalfOpen) //打开到半开
+			}
+			if rb.cnter.ConsecutiveSuccesses >= rb.options.ShoulderToOpen {
+				rb.state = StateClosed
+				rb.options.OnStateChanged(rb.options.Name, StateHalfOpen, StateClosed) //半开到关闭
+			}
+
 		}
 
 	}
