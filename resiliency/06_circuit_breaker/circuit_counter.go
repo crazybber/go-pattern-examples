@@ -33,7 +33,7 @@ type OperationState int
 
 //ICounter interface
 type ICounter interface {
-	Count(OperationState)
+	Count(OperationState, bool)
 	LastActivity() time.Time
 	Reset()
 	Total() uint32
@@ -63,13 +63,19 @@ func (c *counters) Reset() {
 }
 
 //Count the failure and success
-func (c *counters) Count(statue OperationState) {
+func (c *counters) Count(statue OperationState, isConsecutive bool) {
 
 	switch statue {
 	case FailureState:
-		c.ConsecutiveFailures++
+		c.TotalFailures++
+		if isConsecutive || c.ConsecutiveFailures == 0 {
+			c.ConsecutiveFailures++
+		}
 	case SuccessState:
-		c.ConsecutiveSuccesses++
+		c.TotalSuccesses++
+		if isConsecutive || c.ConsecutiveSuccesses == 0 {
+			c.ConsecutiveSuccesses++
+		}
 	}
 	c.Requests++
 	c.lastActivity = time.Now() //更新活动时间

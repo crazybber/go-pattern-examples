@@ -23,10 +23,25 @@ var onStateChangeEvent = func(name string, from, to State) {
 	fmt.Println("name:", name, "from:", from, "to", to)
 }
 
-var whenConditionOccurred = func(cnter counters) bool {
+var canOpenSwitch = func(current State, cnter counters) bool {
+
+	if current == StateHalfOpen {
+		return cnter.ConsecutiveFailures > 2
+	}
+
 	//失败率，可以由用户自己定义
 	failureRatio := float64(cnter.TotalFailures) / float64(cnter.Requests)
 	return cnter.Requests >= 3 && failureRatio >= 0.6
+}
+
+var canCloseSwitch = func(current State, cnter counters) bool {
+	//失败率，可以由用户自己定义
+	if cnter.ConsecutiveSuccesses > 2 {
+		return true
+	}
+	//
+	successRatio := float64(cnter.TotalFailures) / float64(cnter.Requests)
+	return cnter.Requests >= 3 && successRatio >= 0.6
 }
 
 func TestObjectBreaker(t *testing.T) {
@@ -44,7 +59,11 @@ func TestObjectBreaker(t *testing.T) {
 		return body, nil
 	}
 
-	breaker = NewRequestBreaker(Name("HTTP GET"), BreakIf(whenConditionOccurred), WithStateChanged(onStateChangeEvent))
+	breaker = NewRequestBreaker(ActionName("HTTP GET"),
+		WithBreakCondition(canOpenSwitch),
+		WithCloseCondition(canCloseSwitch),
+		WithShoulderHalfToOpen(2),
+		WithStateChanged(onStateChangeEvent))
 
 	body, err := breaker.Do(jobToDo)
 	if err != nil {

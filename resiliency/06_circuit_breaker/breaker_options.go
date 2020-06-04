@@ -14,7 +14,7 @@ import (
 )
 
 //BreakConditionWatcher check state
-type BreakConditionWatcher func(cnter counters) bool
+type BreakConditionWatcher func(state State, cnter counters) bool
 
 //StateChangedEventHandler set event handle
 type StateChangedEventHandler func(name string, from State, to State)
@@ -24,18 +24,19 @@ type Option func(opts *Options)
 
 //Options for breaker
 type Options struct {
-	Name              string
-	Expiry            time.Time
-	Interval, Timeout time.Duration
-	MaxRequests       uint32
-	WhenToBreak       BreakConditionWatcher //是否应该断开电路(打开电路开关)
-	OnStateChanged    StateChangedEventHandler
-	ShoulderToOpen    uint32
-	Ctx               context.Context
+	Name               string
+	Expiry             time.Time
+	Interval, Timeout  time.Duration
+	MaxRequests        uint32
+	CanOpen            BreakConditionWatcher //是否应该断开电路(打开电路开关)
+	CanClose           BreakConditionWatcher //if we should close switch
+	OnStateChanged     StateChangedEventHandler
+	ShoulderHalfToOpen uint32
+	Ctx                context.Context
 }
 
-//Name of breaker
-func Name(name string) Option {
+//ActionName of breaker
+func ActionName(name string) Option {
 	return func(opts *Options) {
 		opts.Name = name
 	}
@@ -66,6 +67,13 @@ func MaxRequests(maxRequests uint32) Option {
 	}
 }
 
+//WithShoulderHalfToOpen of breaker
+func WithShoulderHalfToOpen(shoulderHalfToOpen uint32) Option {
+	return func(opts *Options) {
+		opts.ShoulderHalfToOpen = shoulderHalfToOpen
+	}
+}
+
 //Expiry of breaker
 func Expiry(expiry time.Time) Option {
 	return func(opts *Options) {
@@ -80,9 +88,16 @@ func WithStateChanged(handler StateChangedEventHandler) Option {
 	}
 }
 
-//BreakIf check traffic state ,to see if request can go
-func BreakIf(whenCondition BreakConditionWatcher) Option {
+//WithBreakCondition check traffic state ,to see if request can go
+func WithBreakCondition(whenCondition BreakConditionWatcher) Option {
 	return func(opts *Options) {
-		opts.WhenToBreak = whenCondition
+		opts.CanOpen = whenCondition
+	}
+}
+
+//WithCloseCondition check traffic state ,to see if request can go
+func WithCloseCondition(whenCondition BreakConditionWatcher) Option {
+	return func(opts *Options) {
+		opts.CanClose = whenCondition
 	}
 }

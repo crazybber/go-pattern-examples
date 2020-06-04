@@ -42,11 +42,11 @@ const (
 
 //RequestBreaker for protection
 type RequestBreaker struct {
-	options    Options
-	mutex      sync.Mutex
-	state      State
-	generation uint64
-	cnter      counters
+	options  Options
+	mutex    sync.Mutex
+	state    State
+	cnter    counters
+	preState State
 }
 
 //NewRequestBreaker return a breaker
@@ -55,10 +55,11 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 	defaultOptions := Options{
 		Name:           "defaultBreakerName",
 		Expiry:         time.Now().Add(time.Second * 20),
-		Interval:       time.Second * 2,  // interval to check status
-		Timeout:        time.Second * 60, //default to 60 seconds
+		Interval:       time.Second * 10, // interval to check  closed status,default 10 seconds
+		Timeout:        time.Second * 60, //timeout to check open, default 60 seconds
 		MaxRequests:    5,
-		WhenToBreak:    func(cnter counters) bool { return cnter.ConsecutiveFailures > 2 },
+		CanOpen:        func(current State, cnter counters) bool { return cnter.ConsecutiveFailures > 2 },
+		CanClose:       func(current State, cnter counters) bool { return cnter.ConsecutiveSuccesses > 2 },
 		OnStateChanged: func(name string, fromPre State, toCurrent State) {},
 	}
 
@@ -68,10 +69,43 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 	}
 
 	return &RequestBreaker{
-		options:    defaultOptions,
-		cnter:      counters{},
-		generation: 0,
+		options:  defaultOptions,
+		cnter:    counters{},
+		state:    StateUnknown,
+		preState: StateUnknown,
 	}
+}
+
+func (rb *RequestBreaker) changeStateTo(state State) {
+	rb.preState = rb.state
+	rb.state = state
+	rb.cnter.Reset()
+}
+
+func (rb *RequestBreaker) beforeRequest() error {
+
+	rb.mutex.Lock()
+	defer rb.mutex.Unlock()
+	fmt.Println("before do request:", rb.cnter.Total())
+
+	switch rb.state {
+	case StateOpen:
+		//如果是断开状态，并且超时了，转到半开状态，记录
+		if rb.options.Expiry.Before(time.Now()) {
+			rb.changeStateTo(StateHalfOpen)
+			rb.options.Expiry = time.Now().Add(rb.options.Timeout)
+			return nil
+		}
+	case StateClosed:
+		if rb.options.Expiry.Before(time.Now()) {
+			rb.cnter.Reset()
+			rb.options.Expiry = time.Now().Add(rb.options.Interval)
+		}
+
+	}
+
+	return ErrTooManyRequests
+
 }
 
 // Do the given requested work if the RequestBreaker accepts it.
@@ -80,62 +114,57 @@ func NewRequestBreaker(opts ...Option) *RequestBreaker {
 // If a panic occurs in the request, the RequestBreaker handles it as an error and causes the same panic again.
 func (rb *RequestBreaker) Do(work func(ctx context.Context) (interface{}, error)) (interface{}, error) {
 
-	preState := StateUnknown
-
 	//before
-	fmt.Println("before do : request:", rb.cnter.Total())
-	rb.mutex.Lock()
 
-	//如果是断开状态，并且超时了，转到半开状态，记录
-	if rb.state == StateOpen && rb.options.Expiry.Before(time.Now()) {
-		preState = rb.state
-		rb.state = StateHalfOpen
-		rb.cnter.Reset()
-	} else {
-		return nil, ErrTooManyRequests
+	if err := rb.beforeRequest(); err != nil {
+		return nil, err
 	}
-
-	rb.mutex.Unlock()
 
 	//do work
 	//do work from requested user
 	result, err := work(rb.options.Ctx)
 
+	//after work
+	rb.afterRequest(err)
+
+	return result, err
+}
+
+func (rb *RequestBreaker) afterRequest(resultErr error) {
+
 	rb.mutex.Lock()
-	//失败了
-	if err != nil {
-		rb.cnter.Count(FailureState)
-		//如果是在半开状态下的失败，立即打开开关
-		if rb.state == StateHalfOpen {
-			rb.state = StateOpen                                                 //转为打开
-			rb.options.OnStateChanged(rb.options.Name, StateHalfOpen, StateOpen) //半开到打开
-		} else if rb.state == StateClosed {
-			if rb.options.WhenToBreak(rb.cnter) {
-				rb.state = StateOpen                                               //打开开关
-				rb.options.OnStateChanged(rb.options.Name, StateClosed, StateOpen) //关闭到打开
-				rb.cnter.Reset()
+	defer rb.mutex.Unlock()
+	//after
+	fmt.Println("after do request:", rb.cnter.Total())
+
+	if resultErr != nil {
+		//失败了,handle 失败
+		rb.cnter.Count(FailureState, rb.preState == rb.state)
+		switch rb.state {
+		case StateHalfOpen, StateClosed:
+			if rb.options.CanOpen(rb.state, rb.cnter) {
+				rb.changeStateTo(StateOpen)                                     //打开开关
+				rb.options.OnStateChanged(rb.options.Name, rb.state, StateOpen) //关闭到打开
 			}
 		}
-
 	} else {
-		//成功了.
-		rb.cnter.Count(SuccessState)
-		if rb.state == StateHalfOpen {
-			if preState == StateOpen {
-				preState = StateHalfOpen
+		//success !
+		rb.cnter.Count(SuccessState, rb.preState == rb.state)
+
+		switch rb.state {
+		case StateHalfOpen:
+			if rb.preState == StateOpen {
+				//	rb.changeStateTo(StateHalfOpen) //already handled in beforeRequest,Only fire StateChange Event
 				rb.options.OnStateChanged(rb.options.Name, StateOpen, StateHalfOpen) //打开到半开
 			}
-			if rb.cnter.ConsecutiveSuccesses >= rb.options.ShoulderToOpen {
-				rb.state = StateClosed
+			if rb.cnter.ConsecutiveSuccesses >= rb.options.ShoulderHalfToOpen {
+				rb.changeStateTo(StateClosed)
+				rb.options.Expiry = time.Now().Add(rb.options.Interval)
 				rb.options.OnStateChanged(rb.options.Name, StateHalfOpen, StateClosed) //半开到关闭
 			}
 
 		}
 
 	}
-	rb.mutex.Unlock()
-	//after
-	fmt.Println("after do : request:", rb.cnter.Total())
 
-	return result, err
 }
