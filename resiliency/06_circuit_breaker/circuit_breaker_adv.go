@@ -96,15 +96,15 @@ func (rb *RequestBreaker) beforeRequest() error {
 			rb.options.Expiry = time.Now().Add(rb.options.Timeout)
 			return nil
 		}
+		return ErrTooManyRequests
 	case StateClosed:
 		if rb.options.Expiry.Before(time.Now()) {
 			rb.cnter.Reset()
 			rb.options.Expiry = time.Now().Add(rb.options.Interval)
 		}
-
 	}
 
-	return ErrTooManyRequests
+	return nil
 
 }
 

@@ -71,6 +71,8 @@ func TestObjectBreaker(t *testing.T) {
 	}
 
 	fmt.Println(string(body.([]byte)))
+
+	log.Print("\nresult:", body.([]byte))
 }
 
 func TestFunctionalBreaker(t *testing.T) {
