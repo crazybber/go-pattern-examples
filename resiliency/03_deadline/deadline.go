@@ -1,3 +1,11 @@
+/*
+ * @Description: https://github.com/crazybber
+ * @Author: Edward
+ * @Date: 2020-06-05 12:43:39
+ * @Last Modified by: Edward
+ * @Last Modified time: 2020-06-05 12:56:40
+ */
+
 // Package deadline implements the deadline (also known as "timeout") resiliency pattern for Go.
 package deadline
 
@@ -12,10 +20,11 @@ var ErrTimedOut = errors.New("timed out waiting for function to finish")
 // Deadline implements the deadline/timeout resiliency pattern.
 type Deadline struct {
 	timeout time.Duration
+	action  string
 }
 
 // New constructs a new Deadline with the given timeout.
-func New(timeout time.Duration) *Deadline {
+func New(timeout time.Duration, sometile string) *Deadline {
 	return &Deadline{
 		timeout: timeout,
 	}
@@ -29,6 +38,7 @@ func New(timeout time.Duration) *Deadline {
 // the return value of the function is returned from Run.
 func (d *Deadline) Run(work func(<-chan struct{}) error) error {
 	result := make(chan error)
+
 	stopper := make(chan struct{})
 
 	go func() {
@@ -38,6 +48,8 @@ func (d *Deadline) Run(work func(<-chan struct{}) error) error {
 		case <-stopper:
 		}
 	}()
+
+	//handle result
 
 	select {
 	case ret := <-result:
