@@ -1,15 +1,15 @@
 {
   "window.autoDetectColorScheme": false,
   "editor.tabSize": 2,
-  "editor.semanticTokenColorCustomizations":{
-      "enabled": true, // enable semantic highlighting for all themes
-      "rules": {
-          "typeParameter": "#352cea",
-          "type": {
-            "foreground": "#00aa00"
-          },
-          "parameter":"#4c70e7",
-      }
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true, // enable semantic highlighting for all themes
+    "rules": {
+      "typeParameter": "#352cea",
+      "type": {
+        "foreground": "#00aa00"
+      },
+      "parameter": "#4c70e7",
+    }
   },
   "extensions.showRecommendationsOnlyOnDemand": true,
   "files.trimTrailingWhitespace": true,
@@ -47,9 +47,9 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-"fileheader.Author":"Edward",
-"fileheader.tpl": "/*\r\n * @Description: https://github.com/crazybber\r\n * @Author: {author}\r\n * @Date: {createTime}\r\n * @Last Modified by: {lastModifiedBy}\r\n * @Last Modified time: {updateTime}\r\n */\r\n\r\n",
-"fileheader.LastModifiedBy": "Edward",
-"peacock.color": "#5e7959"
+  "fileheader.Author": "Edward",
+  "fileheader.tpl": "/*\r\n * @Description: https://github.com/crazybber\r\n * @Author: {author}\r\n * @Date: {createTime}\r\n * @Last Modified by: {lastModifiedBy}\r\n * @Last Modified time: {updateTime}\r\n */\r\n\r\n",
+  "fileheader.LastModifiedBy": "Edward",
+  "peacock.color": "#5e7959"
 }
 //https://vscode.readthedocs.io/en/latest/getstarted/settings/

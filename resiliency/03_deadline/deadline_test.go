@@ -2,64 +2,75 @@ package deadline
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 	"time"
 )
 
-func takes5ms(stopper <-chan struct{}) error {
+func workerTakes5ms(stopper chan error) error {
+	fmt.Println("i'm doing this job in 5ms")
 	time.Sleep(5 * time.Millisecond)
 	return nil
 }
 
-func takes20ms(stopper <-chan struct{}) error {
+func workerTakes20ms(stopper chan error) error {
+	fmt.Println("i'm doing this job in 20ms,so work will timeout")
 	time.Sleep(20 * time.Millisecond)
 	return nil
 }
 
-func returnsError(stopper <-chan struct{}) error {
+func cancelWork(stopper chan error) error {
+	fmt.Println("i'm doing this job")
+	stopper <- errors.New("canceled job") //cancel job
+	time.Sleep(5 * time.Millisecond)
+	fmt.Println("job canceled")
+	return nil
+}
+
+func returnsError(stopper chan error) error {
+	fmt.Println("i'm doing this job but error occurred")
 	return errors.New("foo")
 }
 
 func TestMultiDeadline(t *testing.T) {
-	dl := New(10*time.Millisecond, "test multi deadline case")
 
-	if err := dl.Run(takes5ms); err != nil {
+	dl := New(15*time.Millisecond, "test multi deadline case")
+
+	if err := dl.Run(workerTakes5ms); err != nil {
 		t.Error(err)
 	}
 
-	if err := dl.Run(takes20ms); err != ErrTimedOut {
+	err := dl.Run(cancelWork)
+
+	t.Log("cancelWork  error:", err)
+
+	if err.Error() != "canceled job" {
 		t.Error(err)
 	}
 
-	if err := dl.Run(returnsError); err.Error() != "foo" {
+	err = dl.Run(workerTakes20ms)
+
+	if err != ErrTimedOut {
 		t.Error(err)
 	}
+}
 
-	done := make(chan struct{})
-	err := dl.Run(func(stopper <-chan struct{}) error {
-		<-stopper
+func TestDeadline(t *testing.T) {
+
+	dl := New(1*time.Second, "one time deadline case worker")
+
+	done := make(chan error)
+
+	err := dl.Run(func(stopper chan error) error {
+		fmt.Println("i am doing something here")
+		time.Sleep(time.Second * 2)
 		close(done)
 		return nil
 	})
+
 	if err != ErrTimedOut {
 		t.Error(err)
 	}
 	<-done
-}
 
-func TestDeadline(t *testing.T) {
-	dl := New(1*time.Second, "one dead line case")
-
-	err := dl.Run(func(stopper <-chan struct{}) error {
-		time.Sleep(time.Second * 10)
-		return nil
-	})
-
-	switch err {
-	case ErrTimedOut:
-		t.Error("execution took too long, oops")
-	default:
-		// some other error
-		t.Log("done")
-	}
 }
