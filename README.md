@@ -69,7 +69,7 @@ go test ./...
 + [x] [熔断模式(circuit breaker)](./resiliency/01_circuit_breaker)
 + [x] [限流模式(rate limiting)](./resiliency/02_rate_limiting)
 + [ ] [WIP][重试模式(retrier)](./resiliency/04_retrier)
-+ [ ] [WIP][最后期限模式(deadline)](./resiliency/03_deadline)
++ [x] [最后期限模式(deadline)](./resiliency/03_deadline)
 
 ## 更多模式(同步/并发/并行) Go More Patterns(Concurrency/Parallelism/Sync)
 
