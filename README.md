@@ -18,13 +18,13 @@
 下载：
 
 ```bash
-go https://github.com/crazybber/go-fucking-patterns
+go https://github.com/crazybber/go-pattern-examples
 ```
 
 跑一遍测试：
 
 ```bash
-cd go-fucking-patterns
+cd go-pattern-examples
 go test ./...
 ```
 
