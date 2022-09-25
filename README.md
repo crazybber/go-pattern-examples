@@ -103,6 +103,6 @@ go test ./...
 
 ## 更多 More
 
-需要重新温习下Go基础?看这里
+需要重新温习下Go基础?看这里：
 
 [go-fucking-exercises](https://github.com/crazybber/go-fucking-exercise)
